@@ -1,4 +1,4 @@
-import { FindOneOptions, Repository } from 'typeorm';
+import { FindManyOptions, FindOneOptions, Repository } from 'typeorm';
 import { ICommonDao } from '../../../common/common.dao';
 import ApplicationDataSource from '../../../database/database';
 import { UserEntity } from '../entity/user.entity';
@@ -14,5 +14,11 @@ export class UserDao extends ICommonDao<UserEntity> {
     option: FindOneOptions<UserEntity>
   ): Promise<UserEntity | null> {
     return this.repo.findOne(option);
+  }
+
+  getAllResources(
+    options?: FindManyOptions<UserEntity> | undefined
+  ): Promise<UserEntity[]> {
+    return this.repo.find(options);
   }
 }

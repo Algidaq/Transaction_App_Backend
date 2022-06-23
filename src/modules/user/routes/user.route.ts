@@ -3,6 +3,7 @@ import { CommonRoutesConfig } from '../../../common/common.route.config';
 import express from 'express';
 import { UserController } from '../controller/user.controller';
 import { SimpleConsoleLogger } from 'typeorm';
+import { AuthorizationMiddleware } from '../../../middlewares/authorization.middleware';
 
 export class UserRoute extends CommonRoutesConfig<UserController> {
   constructor(
@@ -16,10 +17,17 @@ export class UserRoute extends CommonRoutesConfig<UserController> {
     return (process.env.PATH_PREFIX ?? '') + '/users';
   }
   configureRoutes(): Application {
-    console.log('user');
+    const authMid = new AuthorizationMiddleware();
+    console.log('user', this.adminRole);
     this.app.route(this.route).get((req, res) => res.json({ users: [] }));
 
-    this.app.route(`${this.route}/:id`).get(this.controller.findSingleResource),
+    this.app
+      .route(`${this.route}/:id`)
+      .get(
+        authMid.isAuthorizedUser,
+        authMid.isAuthByRole(['admin']),
+        this.controller.findSingleResource
+      ),
       this.app
         .route(this.route)
         .post(

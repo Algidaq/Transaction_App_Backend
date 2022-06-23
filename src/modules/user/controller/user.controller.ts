@@ -45,6 +45,7 @@ export class UserController extends ICommonController {
     res: Response<any, Record<string, any>>
   ): Promise<void | Response<any, Record<string, any>>> => {
     try {
+      console.log('here');
       const entity: UserEntity | null = await this.service.findSingleResource(
         req.params
       );
@@ -53,6 +54,7 @@ export class UserController extends ICommonController {
       return res.json(entity);
     } catch (e) {
       console.error(e);
+      return;
     }
   };
 }

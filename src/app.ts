@@ -21,6 +21,7 @@ import { ICreateUserDto } from './modules/user/models/user.dto';
 import { UserController } from './modules/user/controller/user.controller';
 import { UserService } from './modules/user/services/users.service';
 import { UserDao } from './modules/user/models/user.dao';
+import { AuthRoutes } from './modules/auth/auth.route';
 
 const app: express.Application = express();
 const server: http.Server = http.createServer(app);
@@ -68,6 +69,7 @@ async function setup() {
 
   const routes: Array<CommonRoutesConfig<any>> = [];
   routes.push(new UserRoute(app));
+  routes.push(new AuthRoutes(app));
 
   server.listen(port, async () => {
     routes.forEach((route: CommonRoutesConfig<any>) => {

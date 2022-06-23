@@ -1,6 +1,9 @@
 import bcrypt from 'bcrypt';
+import { IGetUserDto } from '../modules/user/models/user.dto';
+import * as jwt from 'jsonwebtoken';
+import { UserEntity } from '../modules/user';
 export const kSaltRounds: number = 10;
-
+export const kPrivateKey = process.env.PRIVATE_KEY ?? 'Empty';
 export async function generateSalt(): Promise<string> {
   return bcrypt.genSalt(kSaltRounds);
 }
@@ -11,9 +14,23 @@ export async function encryptePassowrd(password: string): Promise<string> {
   return encryptedPassword;
 }
 
-export async function compare(
+export async function comparePassword(
   password: string,
   encryptedPassword: string
 ): Promise<boolean> {
   return bcrypt.compare(password, encryptedPassword);
+}
+
+export function getJwtToken(
+  user: Partial<UserEntity>,
+  signOptions?: jwt.SignOptions
+): string {
+  const token = jwt.sign(
+    { ...user },
+    kPrivateKey,
+    signOptions ?? {
+      expiresIn: '7d',
+    }
+  );
+  return 'Bearer ' + token;
 }

@@ -11,9 +11,11 @@ export interface ICreateUserDto {
 }
 
 export interface IGetUserDto {
+  id: string;
   fullName: string;
   phone: string;
   role: RoleEntity;
+  updateDate: string;
 }
 /**
  * takes request body and converted to user
