@@ -1,6 +1,6 @@
 import { ICommonDao } from '../../../common/common.dao';
 import { UserEntity } from '../entity/user.entity';
-import { getUserDto } from '../models/user.dto';
+import { getUserDto, getUserFindMany } from '../models/user.dto';
 import bcrypt from 'bcrypt';
 import { encryptePassowrd, kSaltRounds } from '../../../utils/utils';
 import { UserDao } from '../models/user.dao';
@@ -22,5 +22,9 @@ export class UserService {
       where: { id: id },
     });
     return entity;
+  }
+  async findAllResources(queryParams: any): Promise<[UserEntity[], number]> {
+    const findOptions = getUserFindMany(queryParams);
+    return this.dao.getAllResourcesAndCount(findOptions);
   }
 }

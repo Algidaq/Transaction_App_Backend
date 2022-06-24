@@ -17,4 +17,7 @@ export abstract class ICommonDao<T extends ObjectLiteral> {
   abstract addResource(resource: any): Promise<T>;
   abstract findSingleResource(option?: FindOneOptions<T>): Promise<T | null>;
   abstract getAllResources(options?: FindManyOptions<T>): Promise<T[]>;
+  abstract getAllResourcesAndCount(
+    options?: FindManyOptions<T>
+  ): Promise<[T[], number]>;
 }

@@ -21,4 +21,9 @@ export class RoleDao extends ICommonDao<RoleEntity> {
   ): Promise<RoleEntity | null> {
     return this.repo.findOne(option);
   }
+  getAllResourcesAndCount(
+    options?: FindManyOptions<RoleEntity> | undefined
+  ): Promise<[RoleEntity[], number]> {
+    return this.repo.findAndCount(options);
+  }
 }

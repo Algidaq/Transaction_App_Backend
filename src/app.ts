@@ -14,7 +14,7 @@ if (result.error) {
   throw result.error;
 }
 import ApplicationDataSource from './database/database';
-import { UserRoute } from './modules/user/routes/user.route';
+import { UserRoute } from './modules/user/routes/user.routes';
 import { RoleEntity } from './modules/role/role.entity';
 import { UserEntity } from './modules/user/entity/user.entity';
 import { ICreateUserDto } from './modules/user/models/user.dto';
@@ -22,6 +22,8 @@ import { UserController } from './modules/user/controller/user.controller';
 import { UserService } from './modules/user/services/users.service';
 import { UserDao } from './modules/user/models/user.dao';
 import { AuthRoutes } from './modules/auth/auth.route';
+import { RoleDao } from './modules/role/role.dao';
+import { RoleRoutes } from './modules/role/role.routes';
 
 const app: express.Application = express();
 const server: http.Server = http.createServer(app);
@@ -66,10 +68,11 @@ app.get('/', (req: express.Request, res: express.Response) => {
 
 async function setup() {
   const result = await ApplicationDataSource.initialize();
-
+  const roles = await new RoleDao().getAllResources();
   const routes: Array<CommonRoutesConfig<any>> = [];
-  routes.push(new UserRoute(app));
+  routes.push(new UserRoute(app, roles));
   routes.push(new AuthRoutes(app));
+  routes.push(new RoleRoutes(app, roles));
 
   server.listen(port, async () => {
     routes.forEach((route: CommonRoutesConfig<any>) => {

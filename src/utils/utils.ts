@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt';
 import { IGetUserDto } from '../modules/user/models/user.dto';
 import * as jwt from 'jsonwebtoken';
 import { UserEntity } from '../modules/user';
+import express from 'express';
 export const kSaltRounds: number = 10;
 export const kPrivateKey = process.env.PRIVATE_KEY ?? 'Empty';
 export async function generateSalt(): Promise<string> {
@@ -34,3 +35,13 @@ export function getJwtToken(
   );
   return 'Bearer ' + token;
 }
+
+export const setTotalPagesHeader = (
+  res: express.Response,
+  query: any,
+  count: number
+): void => {
+  let limit = parseInt(query.limit || '10');
+  res.setHeader('total-pages', Math.ceil(count / limit));
+  res.setHeader('count', count);
+};

@@ -4,15 +4,15 @@ import { RoleDao } from '../modules/role/role.dao';
 export abstract class CommonRoutesConfig<T> {
   private _name: String;
   app: express.Application;
-  userRoles: RoleEntity[] = [];
-  constructor(app: express.Application, name: String, public controller: T) {
+  constructor(
+    app: express.Application,
+    name: String,
+    public controller: T,
+    public userRoles: RoleEntity[] = []
+  ) {
     this._name = name;
     this.app = app;
     this.configureRoutes();
-    new RoleDao().getAllResources().then((roles) => {
-      console.log('roles', roles);
-      this.userRoles.push(...roles);
-    });
   }
 
   get name(): String {

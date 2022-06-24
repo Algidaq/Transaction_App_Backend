@@ -2,15 +2,16 @@ import { Application } from 'express';
 import { CommonRoutesConfig } from '../../../common/common.route.config';
 import express from 'express';
 import { UserController } from '../controller/user.controller';
-import { SimpleConsoleLogger } from 'typeorm';
 import { AuthorizationMiddleware } from '../../../middlewares/authorization.middleware';
+import { RoleEntity } from '../../role/role.entity';
 
 export class UserRoute extends CommonRoutesConfig<UserController> {
   constructor(
     app: express.Application,
+    roles: RoleEntity[] = [],
     controller: UserController = new UserController()
   ) {
-    super(app, 'User', controller);
+    super(app, 'User', controller, roles);
   }
 
   get route(): string {
@@ -19,7 +20,8 @@ export class UserRoute extends CommonRoutesConfig<UserController> {
   configureRoutes(): Application {
     const authMid = new AuthorizationMiddleware();
     console.log('user', this.adminRole);
-    this.app.route(this.route).get((req, res) => res.json({ users: [] }));
+
+    this.app.route(this.route).get(this.controller.findAllResources);
 
     this.app
       .route(`${this.route}/:id`)

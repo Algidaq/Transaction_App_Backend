@@ -9,6 +9,8 @@ import { ICreateUserDto, IGetUserDto } from '../models/user.dto';
 import { IGetRoleDto } from '../../role/role.dto';
 import networkHandler from '../../../utils/network.handler';
 import { UserEntity } from '../entity/user.entity';
+import express from 'express';
+import { setTotalPagesHeader } from '../../../utils/utils';
 
 export class UserController extends ICommonController {
   constructor(private service: UserService = new UserService()) {
@@ -55,6 +57,16 @@ export class UserController extends ICommonController {
     } catch (e) {
       console.error(e);
       return;
+    }
+  };
+  findAllResources = async (req: express.Request, res: express.Response) => {
+    try {
+      const [users, count] = await this.service.findAllResources(req.query);
+      setTotalPagesHeader(res, req.query, count);
+      return res.json(users);
+    } catch (e) {
+      console.error(e);
+      networkHandler.serverError(res, 'Error Occured');
     }
   };
 }

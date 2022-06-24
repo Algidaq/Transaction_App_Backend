@@ -22,4 +22,9 @@ export abstract class ICommonController {
     req: express.Request,
     res: express.Response
   ): Promise<express.Response | void>;
+
+  abstract findAllResources(
+    req: express.Request,
+    res: express.Response
+  ): Promise<express.Response | void>;
 }

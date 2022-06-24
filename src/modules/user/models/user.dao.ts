@@ -21,4 +21,10 @@ export class UserDao extends ICommonDao<UserEntity> {
   ): Promise<UserEntity[]> {
     return this.repo.find(options);
   }
+
+  getAllResourcesAndCount(
+    options?: FindManyOptions<UserEntity> | undefined
+  ): Promise<[UserEntity[], number]> {
+    return this.repo.findAndCount(options);
+  }
 }
