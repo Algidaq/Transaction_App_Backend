@@ -26,4 +26,11 @@ export class RoleDao extends ICommonDao<RoleEntity> {
   ): Promise<[RoleEntity[], number]> {
     return this.repo.findAndCount(options);
   }
+
+  deleteResource(resource: RoleEntity): Promise<RoleEntity> {
+    throw new Error('Method not implemented.');
+  }
+  updateResource(resource: RoleEntity): Promise<RoleEntity> {
+    throw new Error('Method not implemented.');
+  }
 }

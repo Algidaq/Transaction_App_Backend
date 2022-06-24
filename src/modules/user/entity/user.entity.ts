@@ -44,9 +44,8 @@ export class UserEntity {
   })
   // @JoinColumn({ name: 'role_id' })
   role!: RoleEntity;
-  @CreateDateColumn()
+  @CreateDateColumn({ name: 'create_date' })
   createDate!: string;
-
-  @UpdateDateColumn()
+  @UpdateDateColumn({ name: 'update_date' })
   updateDate!: string;
 }

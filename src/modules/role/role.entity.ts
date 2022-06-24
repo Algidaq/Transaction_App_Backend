@@ -15,8 +15,8 @@ export class RoleEntity {
   @Column({ name: 'role', type: 'varchar', nullable: false })
   role!: string;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ name: 'create_date' })
   createDate!: string;
-  @UpdateDateColumn()
+  @UpdateDateColumn({ name: 'update_date' })
   updateDate!: string;
 }

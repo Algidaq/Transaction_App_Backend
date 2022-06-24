@@ -10,6 +10,8 @@ import { RoleEntity } from '../../role/role.entity';
 import { number } from 'joi';
 import { UserEntity } from '../entity/user.entity';
 import express from 'express';
+import { ICommonQueryParams } from '../../../common/common.queryparams';
+import { getPagination } from '../../../utils/utils';
 
 export interface ICreateUserDto {
   fullName: string;
@@ -25,13 +27,9 @@ export interface IGetUserDto {
   role: RoleEntity;
   updateDate: string;
 }
-export interface UserQueryParams {
+export interface UserQueryParams extends ICommonQueryParams {
   fullname?: string;
   roleId?: string;
-  page?: string;
-  limit?: string;
-  orderBy?: string;
-  order?: 'desc' | 'asc';
 }
 /**
  * takes request body and converted to user
@@ -54,9 +52,7 @@ export function getUserDto(requestBody: any): ICreateUserDto {
 export function getUserFindMany(
   queryParams: UserQueryParams
 ): FindManyOptions<UserEntity> {
-  let limit = parseInt(queryParams.limit ?? '10');
-  let page = parseInt(queryParams.page ?? '0');
-  page = page === 1 ? 0 : page - 1;
+  const { skip, take } = getPagination(queryParams);
   console.log(queryParams.roleId);
   const where: FindOptionsWhere<UserEntity>[] = [];
   if (queryParams.fullname !== undefined)
@@ -66,9 +62,9 @@ export function getUserFindMany(
   return {
     where: where.length > 0 ? where : undefined,
     select: ['fullName', 'id', 'createDate', 'phone', 'role', 'updateDate'],
-    skip: page > 0 ? page * limit : 0,
+    skip: skip,
 
-    take: page >= 0 ? limit : undefined,
+    take: take,
     order: !queryParams.orderBy
       ? { createDate: 'desc' }
       : {

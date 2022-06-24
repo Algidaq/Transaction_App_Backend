@@ -2,6 +2,7 @@ import { DataSource } from 'typeorm';
 import mysql2 from 'mysql2';
 import { UserEntity } from '../modules/user/entity/user.entity';
 import { RoleEntity } from '../modules/role/role.entity';
+import { CurrencyEntity } from '../modules/currency/currency.entity';
 const ApplicationDataSource = new DataSource({
   type: 'mysql',
   database: process.env.DB,
@@ -12,7 +13,7 @@ const ApplicationDataSource = new DataSource({
   dateStrings: true,
   synchronize: true,
   driver: mysql2,
-  entities: [UserEntity, RoleEntity],
+  entities: [UserEntity, RoleEntity, CurrencyEntity],
 });
 
 export default ApplicationDataSource;

@@ -24,6 +24,7 @@ import { UserDao } from './modules/user/models/user.dao';
 import { AuthRoutes } from './modules/auth/auth.route';
 import { RoleDao } from './modules/role/role.dao';
 import { RoleRoutes } from './modules/role/role.routes';
+import { CurrencyRoutes } from './modules/currency/currency.routes';
 
 const app: express.Application = express();
 const server: http.Server = http.createServer(app);
@@ -73,7 +74,7 @@ async function setup() {
   routes.push(new UserRoute(app, roles));
   routes.push(new AuthRoutes(app));
   routes.push(new RoleRoutes(app, roles));
-
+  routes.push(new CurrencyRoutes(app, roles));
   server.listen(port, async () => {
     routes.forEach((route: CommonRoutesConfig<any>) => {
       console.log(`Routes configured for ${route.name} ${route.route}`);
