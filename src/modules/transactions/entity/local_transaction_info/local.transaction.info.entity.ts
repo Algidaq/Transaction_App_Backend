@@ -2,6 +2,7 @@ import {
   Column,
   Entity,
   JoinColumn,
+  ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -15,11 +16,11 @@ export class LocalTransactionInfoEntity {
   @PrimaryGeneratedColumn('increment')
   id!: number;
 
-  @OneToOne(() => CustomerEntity, { nullable: false, eager: true })
+  @ManyToOne(() => CustomerEntity, { nullable: false, eager: true })
   @JoinColumn()
   toCustomer!: CustomerEntity;
 
-  @OneToOne(() => AccountEntity, { nullable: false, eager: true })
+  @ManyToOne(() => AccountEntity, { nullable: false, eager: true })
   @JoinColumn()
   toAccount!: AccountEntity;
 

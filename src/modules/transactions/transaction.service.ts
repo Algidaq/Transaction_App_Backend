@@ -67,8 +67,12 @@ export abstract class ITransactionService {
       exchangeRate: {
         fromCurrency: fromAccount.currency,
         toCurrency: toCurrency,
-        rate: toCurrency.id == fromAccount.currency.id ? 1 : body['rate'],
+        rate:
+          toCurrency.id == fromAccount.currency.id
+            ? 1
+            : Number.parseFloat(body['exchangeRate']['rate']),
       },
+      comment: body['comment'],
     };
   }
   getExchangeRateEntityFromDto(
@@ -102,7 +106,9 @@ export abstract class ITransactionService {
     const updatedFromAccount = new AccountEntity();
     updatedFromAccount.id = fromAccount.id;
     updatedFromAccount.customerId = customer.id;
-    updatedFromAccount.currencyId = fromAccount.currency.id;
+    // updatedFromAccount.currencyId = fromAccount.currency.id;
+    updatedFromAccount.currency = fromAccount.currency;
+    updatedFromAccount.balance = fromAccount.balance;
     return updatedFromAccount;
   }
 }

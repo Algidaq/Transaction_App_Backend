@@ -1,14 +1,17 @@
-import { CustomerEntity, AccountEntity } from '../../customers/customer.entity';
-import { TransactionEntity } from '../entity/transaction.entity';
-import ApplicationDataSource from '../../../database/database';
-import { ITransactionService } from '../transaction.service';
-import { CurrencyEntity } from '../../currency/currency.entity';
+import { ITransactionService } from '../../transaction.service';
+import {
+  AccountEntity,
+  CustomerEntity,
+} from '../../../customers/customer.entity';
+import { CurrencyEntity } from '../../../currency/currency.entity';
+import { TransactionEntity } from '../../entity/transaction.entity';
+import ApplicationDataSource from '../../../../database/database';
 
-export class TransactionDepositeService extends ITransactionService {
+export class TransactionWithdrawService extends ITransactionService {
   constructor() {
     super();
   }
-  makeAccountDeposite = async (
+  makeAccountWithdraw = async (
     body: any,
     customer: CustomerEntity,
     fromAccount: AccountEntity,
@@ -20,7 +23,7 @@ export class TransactionDepositeService extends ITransactionService {
       body,
       customer,
       fromAccount,
-      'deposite',
+      'withdraw',
       toCurrency
     );
     try {
@@ -29,7 +32,7 @@ export class TransactionDepositeService extends ITransactionService {
         fromAccount
       );
       console.log(transaction);
-      updateAccountEntity.balance = fromAccount.balance + dto.amount;
+      updateAccountEntity.balance = fromAccount.balance - dto.amount;
       await queryRunner.manager.save<AccountEntity>(updateAccountEntity);
       await queryRunner.commitTransaction();
       await queryRunner.release();

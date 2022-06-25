@@ -24,9 +24,7 @@ import {
   CustomerEntity,
   AccountEntity,
 } from './modules/customers/customer.entity';
-import { CustomerDao } from './modules/customers/customer.dao';
 import { CustomerRoutes } from './modules/customers/customer.routes';
-import { TransactionDepositeService } from './modules/transactions/services/transaction.deposite.service';
 import { TransactionRoutes } from './modules/transactions/transactions.routes';
 
 const app: express.Application = express();

@@ -14,9 +14,9 @@ import { CurrencyService } from '../currency/currency.service';
 export abstract class ITransactionController<T extends ITransactionService> {
   constructor(
     public transactionService: T,
-    private customerService: CustomerService = new CustomerService(),
-    private accountService: CustomerAccountService = new CustomerAccountService(),
-    private currencyService: CurrencyService = new CurrencyService()
+    protected customerService: CustomerService = new CustomerService(),
+    protected accountService: CustomerAccountService = new CustomerAccountService(),
+    protected currencyService: CurrencyService = new CurrencyService()
   ) {}
   /**
    * validate user sent body
@@ -108,6 +108,6 @@ export abstract class ITransactionController<T extends ITransactionService> {
           updateDate: Joi.string(),
         }).required(),
       }).required(),
-    });
+    }).unknown();
   }
 }

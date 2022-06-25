@@ -1,12 +1,10 @@
-import { ITransactionController } from '../transaction.controller';
-import { TransactionDepositeService } from './transaction.deposite.service';
-import { Request } from 'express';
+import { ITransactionController } from '../../transaction.controller';
+import { TransactionWithdrawService } from './transaction.withdraw.service';
 import express from 'express';
-import { CustomerEntity } from '../../customers/customer.entity';
-import networkHandler from '../../../utils/network.handler';
-export class TransactionDepositeController extends ITransactionController<TransactionDepositeService> {
+import networkHandler from '../../../../utils/network.handler';
+export class TransactionWithdrawController extends ITransactionController<TransactionWithdrawService> {
   constructor() {
-    super(new TransactionDepositeService());
+    super(new TransactionWithdrawService());
   }
 
   makeTransactionDeposite = async (
@@ -15,7 +13,7 @@ export class TransactionDepositeController extends ITransactionController<Transa
   ): Promise<express.Response | void> => {
     const [customer, fromAccount, toCurrency] = this.getTransactionData(req);
     try {
-      const _entity = await this.transactionService.makeAccountDeposite(
+      const _entity = await this.transactionService.makeAccountWithdraw(
         req.body,
         customer,
         fromAccount,
