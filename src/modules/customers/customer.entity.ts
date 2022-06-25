@@ -25,6 +25,7 @@ export class CustomerEntity {
     eager: true,
     cascade: ['insert', 'update', 'remove'],
   })
+  @JoinColumn()
   accounts!: AccountEntity[];
 
   @CreateDateColumn({ name: 'create_date' })

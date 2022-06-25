@@ -15,12 +15,7 @@ if (result.error) {
 }
 import ApplicationDataSource from './database/database';
 import { UserRoute } from './modules/user/routes/user.routes';
-import { RoleEntity } from './modules/role/role.entity';
-import { UserEntity } from './modules/user/entity/user.entity';
-import { ICreateUserDto } from './modules/user/models/user.dto';
-import { UserController } from './modules/user/controller/user.controller';
-import { UserService } from './modules/user/services/users.service';
-import { UserDao } from './modules/user/models/user.dao';
+
 import { AuthRoutes } from './modules/auth/auth.route';
 import { RoleDao } from './modules/role/role.dao';
 import { RoleRoutes } from './modules/role/role.routes';
@@ -31,6 +26,7 @@ import {
 } from './modules/customers/customer.entity';
 import { CustomerDao } from './modules/customers/customer.dao';
 import { CustomerRoutes } from './modules/customers/customer.routes';
+import { TransactionDepositeService } from './modules/transactions/services/transaction.deposite.service';
 
 const app: express.Application = express();
 const server: http.Server = http.createServer(app);
@@ -82,6 +78,7 @@ async function setup() {
   routes.push(new RoleRoutes(app, roles));
   routes.push(new CurrencyRoutes(app, roles));
   routes.push(new CustomerRoutes(app, roles));
+
   server.listen(port, async () => {
     routes.forEach((route: CommonRoutesConfig<any>) => {
       console.log(`Routes configured for ${route.name} ${route.route}`);

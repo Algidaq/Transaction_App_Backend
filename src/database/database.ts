@@ -3,6 +3,10 @@ import mysql2 from 'mysql2';
 import { UserEntity } from '../modules/user/entity/user.entity';
 import { RoleEntity } from '../modules/role/role.entity';
 import { CurrencyEntity } from '../modules/currency/currency.entity';
+import { TransactionEntity } from '../modules/transactions/entity/transaction.entity';
+import { TransactionExchangeRateEntity } from '../modules/transactions/entity/exchange_rate/exchange.rate.entity';
+import { LocalTransactionInfoEntity } from '../modules/transactions/entity/local_transaction_info/local.transaction.info.entity';
+import { TransactionInfoEntity } from '../modules/transactions/entity/transaction_info/transaction.info.entity';
 import {
   CustomerEntity,
   AccountEntity,
@@ -23,6 +27,10 @@ const ApplicationDataSource = new DataSource({
     CurrencyEntity,
     CustomerEntity,
     AccountEntity,
+    TransactionEntity,
+    TransactionExchangeRateEntity,
+    TransactionInfoEntity,
+    LocalTransactionInfoEntity,
   ],
 });
 
