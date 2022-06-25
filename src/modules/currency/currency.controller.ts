@@ -53,4 +53,14 @@ export class CurrencyController extends ICommonController {
     setTotalPagesHeader(res, req.query, count);
     return res.json(currencies);
   };
+  deleteResource = async (
+    req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>,
+    res: Response<any, Record<string, any>>
+  ): Promise<void | Response<any, Record<string, any>>> => {
+    const deletedResource = await this.service.deleteCurrency(req.params);
+    if (deletedResource === null) {
+      return networkHandler.entityNotFound(res, 'Currency', req.params.id);
+    }
+    return res.json(deletedResource);
+  };
 }

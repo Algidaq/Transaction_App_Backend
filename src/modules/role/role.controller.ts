@@ -45,4 +45,13 @@ export class RoleController extends ICommonController {
     setTotalPagesHeader(res, req.query, count);
     return res.json(roles);
   };
+  deleteResource = async (
+    req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>,
+    res: Response<any, Record<string, any>>
+  ): Promise<void | Response<any, Record<string, any>>> => {
+    const id = Number.parseInt(req.params.id ?? '-1');
+    const role = await this.roleDao.findSingleResource({ where: { id: id } });
+    if (!role) return networkHandler.entityNotFound(res, 'Role', `${id}`);
+    return res.json(role);
+  };
 }

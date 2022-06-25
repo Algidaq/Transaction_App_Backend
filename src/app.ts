@@ -25,6 +25,12 @@ import { AuthRoutes } from './modules/auth/auth.route';
 import { RoleDao } from './modules/role/role.dao';
 import { RoleRoutes } from './modules/role/role.routes';
 import { CurrencyRoutes } from './modules/currency/currency.routes';
+import {
+  CustomerEntity,
+  AccountEntity,
+} from './modules/customers/customer.entity';
+import { CustomerDao } from './modules/customers/customer.dao';
+import { CustomerRoutes } from './modules/customers/customer.routes';
 
 const app: express.Application = express();
 const server: http.Server = http.createServer(app);
@@ -50,9 +56,9 @@ const loggerOptions: expressWinston.LoggerOptions = {
   ),
 };
 
-if (!process.env.DEBUG) {
-  loggerOptions.meta = false; // when not debugging, log requests as one-liners
-}
+// if (!process.env.Node) {
+//   loggerOptions.meta = false; // when not debugging, log requests as one-liners
+// }
 
 // initialize the logger with the above configuration
 app.use(expressWinston.logger(loggerOptions));
@@ -75,6 +81,7 @@ async function setup() {
   routes.push(new AuthRoutes(app));
   routes.push(new RoleRoutes(app, roles));
   routes.push(new CurrencyRoutes(app, roles));
+  routes.push(new CustomerRoutes(app, roles));
   server.listen(port, async () => {
     routes.forEach((route: CommonRoutesConfig<any>) => {
       console.log(`Routes configured for ${route.name} ${route.route}`);

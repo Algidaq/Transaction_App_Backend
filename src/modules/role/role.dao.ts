@@ -28,7 +28,7 @@ export class RoleDao extends ICommonDao<RoleEntity> {
   }
 
   deleteResource(resource: RoleEntity): Promise<RoleEntity> {
-    throw new Error('Method not implemented.');
+    return this.repo.remove(resource);
   }
   updateResource(resource: RoleEntity): Promise<RoleEntity> {
     throw new Error('Method not implemented.');

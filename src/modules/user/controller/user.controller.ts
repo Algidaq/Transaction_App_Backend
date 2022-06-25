@@ -69,4 +69,12 @@ export class UserController extends ICommonController {
       networkHandler.serverError(res, 'Error Occured');
     }
   };
+  deleteResource = async (
+    req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>,
+    res: Response<any, Record<string, any>>
+  ): Promise<void | Response<any, Record<string, any>>> => {
+    const user = await this.service.deleteResource(req.params);
+    if (!user) return networkHandler.entityNotFound(res, 'User', req.params.id);
+    return res.json(user);
+  };
 }

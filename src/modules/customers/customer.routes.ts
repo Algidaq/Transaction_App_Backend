@@ -1,16 +1,15 @@
 import { Application } from 'express';
 import { CommonRoutesConfig } from '../../common/common.route.config';
-import { RoleController } from './role.controller';
+import { CustomerController } from './customer.controller';
 import express from 'express';
-import { RoleEntity } from './role.entity';
-export class RoleRoutes extends CommonRoutesConfig<RoleController> {
+import { RoleEntity } from '../role/role.entity';
+export class CustomerRoutes extends CommonRoutesConfig<CustomerController> {
   constructor(app: express.Application, roles: RoleEntity[] = []) {
-    super(app, 'RoleRoute', new RoleController());
+    super(app, 'Customers', new CustomerController(), roles);
   }
   configureRoutes(): Application {
     this.app.route(this.route).get(this.controller.findAllResources);
-    this.app.route(this.route + '/:id').get(this.controller.findSingleResource);
-    this.app.route(this.route + '/:id').delete(this.controller.deleteResource);
+    this.app.route(this.route + ':/id').get(this.controller.findAllResources);
     this.app
       .route(this.route)
       .post(
@@ -20,6 +19,6 @@ export class RoleRoutes extends CommonRoutesConfig<RoleController> {
     return this.app;
   }
   get route(): string {
-    return this.pathPrefix + '/roles';
+    return this.pathPrefix + '/customers';
   }
 }

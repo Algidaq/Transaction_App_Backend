@@ -4,6 +4,7 @@ import { getUserDto, getUserFindMany } from '../models/user.dto';
 import bcrypt from 'bcrypt';
 import { encryptePassowrd, kSaltRounds } from '../../../utils/utils';
 import { UserDao } from '../models/user.dao';
+import networkHandler from '../../../utils/network.handler';
 export class UserService {
   constructor(private dao: ICommonDao<UserEntity> = new UserDao()) {}
 
@@ -26,5 +27,10 @@ export class UserService {
   async findAllResources(queryParams: any): Promise<[UserEntity[], number]> {
     const findOptions = getUserFindMany(queryParams);
     return this.dao.getAllResourcesAndCount(findOptions);
+  }
+  async deleteResource(params: any): Promise<UserEntity | null> {
+    const user = await this.findSingleResource(params);
+    if (!user) return null;
+    return user;
   }
 }

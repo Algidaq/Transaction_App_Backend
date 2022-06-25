@@ -27,4 +27,9 @@ export abstract class ICommonController {
     req: express.Request,
     res: express.Response
   ): Promise<express.Response | void>;
+
+  abstract deleteResource(
+    req: express.Request,
+    res: express.Response
+  ): Promise<express.Response | void>;
 }

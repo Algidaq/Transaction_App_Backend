@@ -28,7 +28,7 @@ export class UserDao extends ICommonDao<UserEntity> {
     return this.repo.findAndCount(options);
   }
   deleteResource(resource: UserEntity): Promise<UserEntity> {
-    throw new Error('Method not implemented.');
+    return this.repo.remove(resource);
   }
   updateResource(resource: UserEntity): Promise<UserEntity> {
     throw new Error('Method not implemented.');
