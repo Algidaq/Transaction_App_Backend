@@ -5,8 +5,10 @@ import { ICreateTransactionDto, ICreateExchangeRate } from './transactions.dto';
 import { TransactionEntity } from './entity/transaction.entity';
 import { TransactionType } from './types/transactions.types';
 import { CurrencyEntity } from '../currency/currency.entity';
+import { TransactionDao } from './transaction.dao';
 
 export abstract class ITransactionService {
+  constructor(public transactionDao: TransactionDao = new TransactionDao()) {}
   async makeTransaction(
     queryRunner: QueryRunner,
     body: any,
@@ -77,7 +79,7 @@ export abstract class ITransactionService {
     entity.fromCurrency = dto.fromCurrency;
     entity.toCurrency = dto.toCurrency;
     entity.rate = dto.rate;
-    entity.exhangedAmount = amount * dto.rate;
+    entity.exchangedAmount = amount * dto.rate;
     return entity;
   }
 

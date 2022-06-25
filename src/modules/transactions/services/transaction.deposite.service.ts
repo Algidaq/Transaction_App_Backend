@@ -5,6 +5,9 @@ import { ITransactionService } from '../transaction.service';
 import { CurrencyEntity } from '../../currency/currency.entity';
 
 export class TransactionDepositeService extends ITransactionService {
+  constructor() {
+    super();
+  }
   makeAccountDeposite = async (
     body: any,
     customer: CustomerEntity,
@@ -25,6 +28,7 @@ export class TransactionDepositeService extends ITransactionService {
         customer,
         fromAccount
       );
+      console.log(transaction);
       updateAccountEntity.balance = fromAccount.balance + dto.amount;
       await queryRunner.manager.save<AccountEntity>(updateAccountEntity);
       await queryRunner.commitTransaction();

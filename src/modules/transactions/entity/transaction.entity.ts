@@ -3,6 +3,8 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
+  ManyToMany,
+  ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -19,11 +21,11 @@ export class TransactionEntity {
   @CreateDateColumn({ name: 'date' })
   date!: string;
 
-  @OneToOne(() => CustomerEntity, { eager: true, nullable: false })
+  @ManyToOne(() => CustomerEntity, { eager: true, nullable: false })
   @JoinColumn()
   customer!: CustomerEntity;
 
-  @OneToOne(() => AccountEntity, { eager: true, nullable: false })
+  @ManyToOne(() => AccountEntity, { eager: true, nullable: false })
   @JoinColumn()
   fromAccount!: AccountEntity;
 

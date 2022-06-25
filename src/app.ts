@@ -27,6 +27,7 @@ import {
 import { CustomerDao } from './modules/customers/customer.dao';
 import { CustomerRoutes } from './modules/customers/customer.routes';
 import { TransactionDepositeService } from './modules/transactions/services/transaction.deposite.service';
+import { TransactionRoutes } from './modules/transactions/transactions.routes';
 
 const app: express.Application = express();
 const server: http.Server = http.createServer(app);
@@ -78,7 +79,7 @@ async function setup() {
   routes.push(new RoleRoutes(app, roles));
   routes.push(new CurrencyRoutes(app, roles));
   routes.push(new CustomerRoutes(app, roles));
-
+  routes.push(new TransactionRoutes(app, roles));
   server.listen(port, async () => {
     routes.forEach((route: CommonRoutesConfig<any>) => {
       console.log(`Routes configured for ${route.name} ${route.route}`);

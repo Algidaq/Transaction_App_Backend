@@ -29,7 +29,7 @@ export function getExchangeRateEntityFromDto(
   entity.fromCurrency = dto.fromCurrency;
   entity.toCurrency = dto.toCurrency;
   entity.rate = dto.rate;
-  entity.exhangedAmount = amount * dto.rate;
+  entity.exchangedAmount = amount * dto.rate;
   return entity;
 }
 

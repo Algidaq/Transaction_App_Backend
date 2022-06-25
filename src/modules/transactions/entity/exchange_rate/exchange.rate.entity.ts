@@ -2,6 +2,7 @@ import {
   Column,
   Entity,
   JoinColumn,
+  ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -13,19 +14,25 @@ export class TransactionExchangeRateEntity {
   @PrimaryGeneratedColumn('increment')
   id!: number;
 
-  @OneToOne(() => CurrencyEntity, { eager: true, nullable: false })
+  @ManyToOne(() => CurrencyEntity, { eager: true, nullable: false })
   @JoinColumn()
   fromCurrency!: CurrencyEntity;
 
-  @OneToOne(() => CurrencyEntity, { eager: true, nullable: false })
+  @ManyToOne(() => CurrencyEntity, { eager: true, nullable: false })
   @JoinColumn()
   toCurrency!: CurrencyEntity;
 
-  @Column({ name: 'rate', type: 'float', nullable: false, default: 1 })
+  @Column({
+    name: 'rate',
+    type: 'float',
+    nullable: false,
+    default: 1,
+    unique: false,
+  })
   rate!: number;
 
   @Column({ name: 'exchanged_amount', type: 'float', nullable: false })
-  exhangedAmount!: number;
+  exchangedAmount!: number;
 
   static createInstanceFormDto(
     dto: ICreateExchangeRate,
@@ -35,7 +42,7 @@ export class TransactionExchangeRateEntity {
     entity.fromCurrency = dto.fromCurrency;
     entity.toCurrency = dto.toCurrency;
     entity.rate = dto.rate;
-    entity.exhangedAmount = amount * dto.rate;
+    entity.exchangedAmount = amount * dto.rate;
     return entity;
   }
 }

@@ -7,7 +7,7 @@ import { CustomerService } from '../customers/customers.service';
 import { CustomerAccountService } from '../customers/accounts/customer.account.service';
 import { ICreateTransactionDto, ICreateExchangeRate } from './transactions.dto';
 import { DeepPartial } from 'typeorm';
-import { CustomerEntity } from '../customers/customer.entity';
+import { CustomerEntity, AccountEntity } from '../customers/customer.entity';
 import { IGetAccountDto } from '../customers/customer.dto';
 import { CurrencyEntity } from '../currency/currency.entity';
 import { CurrencyService } from '../currency/currency.service';
@@ -18,7 +18,9 @@ export abstract class ITransactionController<T extends ITransactionService> {
     private accountService: CustomerAccountService = new CustomerAccountService(),
     private currencyService: CurrencyService = new CurrencyService()
   ) {}
-
+  /**
+   * validate user sent body
+   */
   validateCreationSchema = (
     req: express.Request,
     res: express.Response,
@@ -28,7 +30,11 @@ export abstract class ITransactionController<T extends ITransactionService> {
     if (!error) return next();
     return networkHandler.badRequest(res, error?.message ?? 'N/A');
   };
-
+  /**
+   * middleware that fetch customer , fromAccount, toCurrency
+   * customer if Customer not found returns 404 same as for fromAccount,toCurrency
+   *
+   */
   validateIsCustomerAndFromAccountExists = async (
     req: express.Request,
     res: express.Response,
@@ -45,7 +51,7 @@ export abstract class ITransactionController<T extends ITransactionService> {
 
     const account = await this.accountService.getAccountById(fromAccountId);
     if (!account) {
-      networkHandler.entityNotFound(res, 'Customer', customerId);
+      networkHandler.entityNotFound(res, 'fromAccount', fromAccountId);
       return;
     }
     const currencyId: string =
@@ -54,8 +60,8 @@ export abstract class ITransactionController<T extends ITransactionService> {
       id: currencyId,
     });
 
-    if (toCurrency) {
-      networkHandler.entityNotFound(res, 'Customer', customerId);
+    if (!toCurrency) {
+      networkHandler.entityNotFound(res, 'toCurrency', currencyId);
       return;
     }
     (req as any).customer = customer;
@@ -63,6 +69,14 @@ export abstract class ITransactionController<T extends ITransactionService> {
     (req as any).toCurrency = toCurrency;
 
     next();
+  };
+  getTransactionData = (
+    req: express.Request
+  ): [CustomerEntity, AccountEntity, CurrencyEntity] => {
+    const customer: CustomerEntity = (req as any).customer as CustomerEntity;
+    const fromAccount = (req as any).fromAccount as AccountEntity;
+    const toCurrency = (req as any).toCurrency as CurrencyEntity;
+    return [customer, fromAccount, toCurrency];
   };
 
   get creationSchema(): Joi.ObjectSchema {
@@ -93,7 +107,7 @@ export abstract class ITransactionController<T extends ITransactionService> {
           createDate: Joi.string(),
           updateDate: Joi.string(),
         }).required(),
-      }),
+      }).required(),
     });
   }
 }

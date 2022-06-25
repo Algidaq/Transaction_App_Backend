@@ -10,7 +10,7 @@ import { UserEntity } from '../user/entity/user.entity';
 
 export abstract class ITransactionDao extends ICommonDao<TransactionEntity> {
   constructor() {
-    super(UserEntity);
+    super(TransactionEntity);
   }
 
   abstract insertNewResource(
