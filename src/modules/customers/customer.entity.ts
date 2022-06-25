@@ -43,24 +43,24 @@ export interface IGetAccountEntity {
  *
  */
 export class AccountEntity {
-  @PrimaryGeneratedColumn('uuid')
+  @Column({ name: 'id', generated: 'uuid' })
   id!: string;
 
   @Column({ name: 'balance', type: 'float', nullable: false, default: 0.0 })
   balance!: number;
 
   @ManyToOne(() => CurrencyEntity, { eager: true, nullable: false })
-  @JoinColumn({ name: 'currency_id' })
+  @JoinColumn({ name: 'currencyId' })
   currency!: CurrencyEntity;
 
-  @PrimaryColumn({ name: 'currency_id', select: false })
+  @PrimaryColumn({ name: 'currencyId', select: false })
   currencyId!: number;
 
   @ManyToOne(() => CustomerEntity, (customer) => customer.accounts)
-  @JoinColumn({ name: 'customer_id', referencedColumnName: 'id' })
+  @JoinColumn({ name: 'customerId', referencedColumnName: 'id' })
   customer!: CustomerEntity;
 
-  @PrimaryColumn({ name: 'customer_id', select: false })
+  @PrimaryColumn({ name: 'customerId', select: false })
   customerId!: string;
 
   @CreateDateColumn({ name: 'create_date' })

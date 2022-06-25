@@ -3,13 +3,14 @@ import { ParamsDictionary } from 'express-serve-static-core';
 import { custom, ObjectSchema } from 'joi';
 import { ParsedQs } from 'qs';
 import { ICommonController } from '../../common/common.controller';
-import { CustomerService, CustomerAccountService } from './customers.service';
+import { CustomerService } from './customers.service';
 import Joi from 'joi';
 import { ICreateCustomerAccountDto, ICreateCustomerDto } from './customer.dto';
 import { DeepPartial } from 'typeorm';
 import { CurrencyEntity } from '../currency/currency.entity';
 import networkHandler from '../../utils/network.handler';
 import { setTotalPagesHeader } from '../../utils/utils';
+import { CustomerAccountService } from './accounts/customer.account.service';
 export class CustomerController extends ICommonController {
   constructor(
     private customerService: CustomerService = new CustomerService(),
