@@ -1,7 +1,7 @@
-import { CustomerDao, AccountDao } from './customer.dao';
-import { CustomerEntity, AccountEntity } from './customer.entity';
+import { CustomerDao } from './customer.dao';
 import { CurrencyDao } from '../currency/currency.dao';
 import { CurrencyEntity } from '../currency/currency.entity';
+import { AccountDao } from './accounts/customer.account.dao';
 import {
   getAccountsQueryParams,
   IGetCustomerDto,
@@ -11,6 +11,7 @@ import {
   getCustomerQueryParams,
   ICreateCustomerAccountDto,
 } from './customer.dto';
+import { CustomerEntity } from './customer.entity';
 export class CustomerService {
   constructor(
     private customerDao: CustomerDao = new CustomerDao(),

@@ -1,11 +1,10 @@
-import { ITransactionService } from '../../transaction.service';
-import {
-  AccountEntity,
-  CustomerEntity,
-} from '../../../customers/customer.entity';
+import { ITransactionService } from '../../base.transaction.service';
+import { CustomerEntity } from '../../../customers/customer.entity';
 import { CurrencyEntity } from '../../../currency/currency.entity';
 import { TransactionEntity } from '../../entity/transaction.entity';
 import ApplicationDataSource from '../../../../database/database';
+import { AccountEntity } from '../../../customers/accounts/customer.account.entity';
+import { Logger } from '../../../../utils/logger';
 
 export class TransactionWithdrawService extends ITransactionService {
   constructor() {
@@ -27,18 +26,17 @@ export class TransactionWithdrawService extends ITransactionService {
       toCurrency
     );
     try {
-      const updateAccountEntity = await this.getAccountEntityFromDto(
-        customer,
-        fromAccount
-      );
-      console.log(transaction);
+      const [updateAccountEntity] = await this.getAccountEntityFromDto([
+        { customer, account: fromAccount },
+      ]);
+      Logger.info(transaction);
       updateAccountEntity.balance = fromAccount.balance - dto.amount;
       await queryRunner.manager.save<AccountEntity>(updateAccountEntity);
       await queryRunner.commitTransaction();
       await queryRunner.release();
       return transaction;
     } catch (e) {
-      console.log(e);
+      Logger.error(e);
       await queryRunner.rollbackTransaction();
       await queryRunner.release();
       throw Error('Unable to create customer');

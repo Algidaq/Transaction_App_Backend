@@ -20,19 +20,17 @@ import { AuthRoutes } from './modules/auth/auth.route';
 import { RoleDao } from './modules/role/role.dao';
 import { RoleRoutes } from './modules/role/role.routes';
 import { CurrencyRoutes } from './modules/currency/currency.routes';
-import {
-  CustomerEntity,
-  AccountEntity,
-} from './modules/customers/customer.entity';
 import { CustomerRoutes } from './modules/customers/customer.routes';
 import { TransactionRoutes } from './modules/transactions/transactions.routes';
+import { Logger } from './utils/logger';
 
 const app: express.Application = express();
 const server: http.Server = http.createServer(app);
+
 const port = Number.parseInt(process.env.PORT ?? '3000');
 const debugLog: debug.IDebugger = debug('app');
 
-console.info(process.env.NODE_ENV);
+Logger.info(process.env.NODE_ENV);
 
 // here we are adding middleware to parse all incoming requests as JSON
 app.use(express.json());
@@ -51,7 +49,7 @@ const loggerOptions: expressWinston.LoggerOptions = {
   ),
 };
 
-if (!process.env.Node) {
+if (process.env.NODE_ENV !== 'development') {
   loggerOptions.meta = false; // when not debugging, log requests as one-liners
 }
 
@@ -69,9 +67,9 @@ app.get('/', (req: express.Request, res: express.Response) => {
 });
 
 async function setup() {
-  const result = await ApplicationDataSource.initialize();
+  await ApplicationDataSource.initialize();
   const roles = await new RoleDao().getAllResources();
-  const routes: Array<CommonRoutesConfig<any>> = [];
+  const routes: CommonRoutesConfig<any>[] = [];
   routes.push(new UserRoute(app, roles));
   routes.push(new AuthRoutes(app));
   routes.push(new RoleRoutes(app, roles));
@@ -80,11 +78,11 @@ async function setup() {
   routes.push(new TransactionRoutes(app, roles));
   server.listen(port, async () => {
     routes.forEach((route: CommonRoutesConfig<any>) => {
-      console.log(`Routes configured for ${route.name} ${route.route}`);
+      Logger.info(`Routes configured for ${route.name} ${route.route}`);
     });
     // our only exception to avoiding console.log(), because we
     // always want to know when the server is done starting up
-    console.log(runningMessage);
+    Logger.info(runningMessage);
   });
 }
 

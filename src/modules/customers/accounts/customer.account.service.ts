@@ -1,8 +1,10 @@
 import { CurrencyEntity } from '../../currency/currency.entity';
-import { CustomerDao, AccountDao } from '../customer.dao';
-import { AccountEntity, CustomerEntity } from '../customer.entity';
+import { CustomerDao } from '../customer.dao';
+import { CustomerEntity } from '../customer.entity';
 import { getAccountsQueryParams } from '../customer.dto';
 import { InsertResult } from 'typeorm';
+import { AccountEntity } from './customer.account.entity';
+import { AccountDao } from './customer.account.dao';
 export class CustomerAccountService {
   constructor(
     private customerDao: CustomerDao = new CustomerDao(),
@@ -16,8 +18,7 @@ export class CustomerAccountService {
     const currency: CurrencyEntity | undefined = body.currency;
     const balance: number | undefined = body.balance ?? 0.0;
     return this.accountDao.repo.insert({
-      currency: currency,
-      // customer: customer,
+      currency,
       customerId: customer.id,
       balance: balance ?? 0.0,
     });
@@ -30,7 +31,7 @@ export class CustomerAccountService {
   getAccountsByCustomerId = async (params: any): Promise<AccountEntity[]> => {
     const customerId: string | undefined = params.id;
     return this.accountDao.getAllResources({
-      where: { customerId: customerId },
+      where: { customerId },
       select: [
         'id',
         'balance',
@@ -54,7 +55,7 @@ export class CustomerAccountService {
 
   getAccountById = async (id: string) => {
     return this.accountDao.findSingleResource({
-      where: { id: id },
+      where: { id },
       select: [
         'id',
         'balance',

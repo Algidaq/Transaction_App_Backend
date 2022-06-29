@@ -5,10 +5,12 @@ import { RoleEntity } from '../role/role.entity';
 import { TransactionDepositeController } from './services/deposite/transaction.deposite.controller';
 import { TransactionWithdrawController } from './services/withdraw/transaction.withdraw.controller';
 import { TransactionLocalTransferController } from './services/local_transfer/transaction.local.transfer.controller';
+import { TransactionGlobalTransferController } from './services/global_transfer/transaction.global.transfer.controller';
+import { TransactionController } from './transaction.controller';
 
-export class TransactionRoutes extends CommonRoutesConfig<any> {
+export class TransactionRoutes extends CommonRoutesConfig<TransactionController> {
   constructor(app: express.Application, roles: RoleEntity[] = []) {
-    super(app, 'TransactionsRoute', {}, roles);
+    super(app, 'TransactionsRoute', new TransactionController(), roles);
   }
   configureRoutes(): Application {
     /**
@@ -47,6 +49,26 @@ export class TransactionRoutes extends CommonRoutesConfig<any> {
         localTransferController.validateIsToCustomerAndToAccountExists,
         localTransferController.handleAccountToAccountTransfer
       );
+
+    /**
+     * Global transfer route
+     */
+    const globalTransferController = new TransactionGlobalTransferController();
+    this.app
+      .route(this.route + '/global-transfer')
+      .post(
+        globalTransferController.validateCreationSchema,
+        globalTransferController.validateGlobalTransferSchema,
+        globalTransferController.validateIsCustomerAndFromAccountExists,
+        globalTransferController.handleGlobalTransfer
+      );
+    /**
+     * Get transaction by id
+     */
+    this.app.route(this.route + '/:id').get(this.controller.findSingleResource);
+    this.app.route(this.route).get(this.controller.findAllResources);
+    this.app.route(this.route + '/:id').delete(this.controller.deleteResource);
+
     return this.app;
   }
   get route(): string {

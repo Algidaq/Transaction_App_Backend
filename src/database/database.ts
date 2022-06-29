@@ -7,10 +7,8 @@ import { TransactionEntity } from '../modules/transactions/entity/transaction.en
 import { TransactionExchangeRateEntity } from '../modules/transactions/entity/exchange_rate/exchange.rate.entity';
 import { LocalTransactionInfoEntity } from '../modules/transactions/entity/local_transaction_info/local.transaction.info.entity';
 import { TransactionInfoEntity } from '../modules/transactions/entity/transaction_info/transaction.info.entity';
-import {
-  CustomerEntity,
-  AccountEntity,
-} from '../modules/customers/customer.entity';
+import { CustomerEntity } from '../modules/customers/customer.entity';
+import { AccountEntity } from '../modules/customers/accounts/customer.account.entity';
 const ApplicationDataSource = new DataSource({
   type: 'mysql',
   database: process.env.DB,

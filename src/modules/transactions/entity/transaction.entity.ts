@@ -8,11 +8,12 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { CustomerEntity, AccountEntity } from '../../customers/customer.entity';
+import { CustomerEntity } from '../../customers/customer.entity';
 import { TransactionType } from '../types/transactions.types';
 import { TransactionExchangeRateEntity } from './exchange_rate/exchange.rate.entity';
 import { TransactionInfoEntity } from '../entity/transaction_info/transaction.info.entity';
 import { LocalTransactionInfoEntity } from '../entity/local_transaction_info/local.transaction.info.entity';
+import { AccountEntity } from '../../customers/accounts/customer.account.entity';
 
 @Entity({ name: 'transactions' })
 export class TransactionEntity {
@@ -41,6 +42,7 @@ export class TransactionEntity {
   @OneToOne(() => TransactionExchangeRateEntity, {
     eager: true,
     nullable: false,
+    cascade: true,
   })
   @JoinColumn()
   exchangeRate!: TransactionExchangeRateEntity;

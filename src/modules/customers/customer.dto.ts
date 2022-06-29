@@ -3,7 +3,8 @@ import { ICommonQueryParams } from '../../common/common.queryparams';
 import { getPagination } from '../../utils/utils';
 import { FindOptionsWhere, FindManyOptions, Like } from 'typeorm';
 import { CustomerDao } from './customer.dao';
-import { CustomerEntity, AccountEntity } from './customer.entity';
+import { CustomerEntity } from './customer.entity';
+import { AccountEntity } from './accounts/customer.account.entity';
 export interface ICreateCustomerDto {
   fullName: string;
   phone: string;

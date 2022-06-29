@@ -1,11 +1,10 @@
-import {
-  CustomerEntity,
-  AccountEntity,
-} from '../../../customers/customer.entity';
+import { CustomerEntity } from '../../../customers/customer.entity';
 import { TransactionEntity } from '../../entity/transaction.entity';
 import ApplicationDataSource from '../../../../database/database';
-import { ITransactionService } from '../../transaction.service';
+import { ITransactionService } from '../../base.transaction.service';
 import { LocalTransactionInfoEntity } from '../../entity/local_transaction_info/local.transaction.info.entity';
+import { AccountEntity } from '../../../customers/accounts/customer.account.entity';
+import { Logger } from '../../../../utils/logger';
 
 export class TransactionLocalTransferService extends ITransactionService {
   constructor() {
@@ -32,15 +31,15 @@ export class TransactionLocalTransferService extends ITransactionService {
       transaction.localTransactionInfo =
         await queryRunner.manager.save<LocalTransactionInfoEntity>(localeInfo);
       await queryRunner.manager.save<TransactionEntity>(transaction);
+      const [updatedToAccount, updatedFromAccount] =
+        this.getAccountEntityFromDto([
+          { customer: data.toCustomer, account: data.toAccount },
+          {
+            customer: data.customer,
+            account: data.fromAccount,
+          },
+        ]);
 
-      const updatedToAccount = this.getAccountEntityFromDto(
-        data.toCustomer,
-        data.toAccount
-      );
-      const updatedFromAccount = this.getAccountEntityFromDto(
-        data.customer,
-        data.fromAccount
-      );
       updatedFromAccount.balance = updatedFromAccount.balance - dto.amount;
       updatedToAccount.balance =
         updatedToAccount.balance + transaction.exchangeRate.exchangedAmount;
@@ -52,7 +51,7 @@ export class TransactionLocalTransferService extends ITransactionService {
       await queryRunner.release();
       return transaction;
     } catch (e) {
-      console.log(e);
+      Logger.error(e);
       await queryRunner.rollbackTransaction();
       await queryRunner.release();
       throw Error('Unable to create customer');

@@ -1,7 +1,8 @@
-import { ITransactionController } from '../../transaction.controller';
+import { ITransactionController } from '../../base.transaction.controller';
 import { TransactionWithdrawService } from './transaction.withdraw.service';
 import express from 'express';
 import networkHandler from '../../../../utils/network.handler';
+import { Logger } from '../../../../utils/logger';
 export class TransactionWithdrawController extends ITransactionController<TransactionWithdrawService> {
   constructor() {
     super(new TransactionWithdrawService());
@@ -19,17 +20,14 @@ export class TransactionWithdrawController extends ITransactionController<Transa
         fromAccount,
         toCurrency
       );
-      console.log(
-        _entity.id,
-        this.transactionService.transactionDao.findSingleResource
-      );
+
       const transaction =
         await this.transactionService.transactionDao.findSingleResource({
           where: { id: _entity.id },
         });
       return res.json(transaction);
     } catch (e) {
-      console.log(e);
+      Logger.error(e);
       return networkHandler.serverError(res, 'Error Occured');
     }
   };

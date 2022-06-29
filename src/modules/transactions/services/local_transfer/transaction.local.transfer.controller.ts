@@ -1,5 +1,5 @@
 import { ObjectSchema } from 'joi';
-import { ITransactionController } from '../../transaction.controller';
+import { ITransactionController } from '../../base.transaction.controller';
 import {
   TransactionLocalTransferService,
   ILocaleTransfer,
@@ -11,10 +11,9 @@ import {
 } from '../../../customers/customer.dto';
 import express from 'express';
 import networkHandler from '../../../../utils/network.handler';
-import {
-  CustomerEntity,
-  AccountEntity,
-} from '../../../customers/customer.entity';
+import { CustomerEntity } from '../../../customers/customer.entity';
+import { AccountEntity } from '../../../customers/accounts/customer.account.entity';
+import { Logger } from '../../../../utils/logger';
 
 export class TransactionLocalTransferController extends ITransactionController<TransactionLocalTransferService> {
   constructor() {
@@ -39,17 +38,14 @@ export class TransactionLocalTransferController extends ITransactionController<T
       };
       const _entity =
         await this.transactionService.handleAccountToAccountTransfer(data);
-      console.log(
-        _entity.id,
-        this.transactionService.transactionDao.findSingleResource
-      );
+
       const transaction =
         await this.transactionService.transactionDao.findSingleResource({
           where: { id: _entity.id },
         });
       return res.json(transaction);
     } catch (e) {
-      console.log(e);
+      Logger.error(e);
       return networkHandler.serverError(res, 'Error Occured');
     }
   };
@@ -87,14 +83,14 @@ export class TransactionLocalTransferController extends ITransactionController<T
     res: express.Response,
     next: express.NextFunction
   ) => {
-    const customerId: string = req.body['toCustomer']['id'] ?? 'N/A';
+    const customerId: string = req.body.toCustomer.id ?? 'N/A';
     const customer = await this.customerService.getCustomer({ id: customerId });
 
     if (!customer) {
       networkHandler.entityNotFound(res, 'toCustomer', customerId);
       return;
     }
-    const fromAccountId: string = req.body['toAccount']['id'] ?? 'N/A';
+    const fromAccountId: string = req.body.toAccount.id ?? 'N/A';
 
     const account = await this.accountService.getAccountById(fromAccountId);
     if (!account) {

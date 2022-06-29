@@ -1,27 +1,27 @@
 import { Response } from 'express';
 
 class NetworkErrorHandler {
-  badRequest(res: Response, message: String) {
-    let statusCode = 400;
+  badRequest(res: Response, message: string) {
+    const statusCode = 400;
     res.status(statusCode);
     return res.json({ statusCode, message });
   }
 
-  notFound(res: Response, message: String) {
-    let statusCode = 404;
+  notFound(res: Response, message: string) {
+    const statusCode = 404;
     res.status(statusCode);
     return res.json({ statusCode, message });
   }
 
   entityNotFound(res: Response, type: string, id: string) {
-    let statusCode = 404;
-    let message = `${type} with the given id ${id} is not found`;
+    const statusCode = 404;
+    const message = `${type} with the given id ${id} is not found`;
     res.status(statusCode);
     return res.json({ statusCode, message });
   }
 
-  serverError(res: Response, message: String) {
-    let statusCode = 500;
+  serverError(res: Response, message: string) {
+    const statusCode = 500;
     res.status(statusCode);
     return res.json({ statusCode, message });
   }

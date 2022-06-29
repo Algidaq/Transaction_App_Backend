@@ -2,8 +2,11 @@ import { IGetCustomerDto, IGetAccountDto } from '../customers/customer.dto';
 import { CurrencyEntity } from '../currency/currency.entity';
 import { DeepPartial } from 'typeorm';
 import { TransactionExchangeRateEntity } from './entity/exchange_rate/exchange.rate.entity';
-import { CustomerEntity, AccountEntity } from '../customers/customer.entity';
+import { CustomerEntity } from '../customers/customer.entity';
 import { TransactionEntity } from './entity/transaction.entity';
+import { AccountEntity } from '../customers/accounts/customer.account.entity';
+import { ICommonQueryParams } from '../../common/common.queryparams';
+import { TransactionType } from './types/transactions.types';
 
 export interface ICreateTransactionDto {
   customer: CustomerEntity;
@@ -13,12 +16,33 @@ export interface ICreateTransactionDto {
   exchangeRate: ICreateExchangeRate;
   comment?: string;
 }
+// tslint:disable-next-line:no-empty-interface
 export interface IDepositeTransactionDto extends ICreateTransactionDto {}
 
 export interface ICreateExchangeRate {
   fromCurrency: CurrencyEntity;
   toCurrency: CurrencyEntity;
   rate: number;
+}
+
+export interface ITransactionQueryParams extends ICommonQueryParams {
+  /**
+   * filter transactions by customerId
+   */
+  customerId?: string;
+  /**
+   * filter transactions by specific customer account
+   */
+  accountId?: string;
+  /**
+   * filter transaction by specific date
+   */
+  date?: string;
+
+  /**
+   * filter by transaction type [``deposite``,``withdraw``,``localTransfer``,``globalTransfer``]
+   */
+  type?: string;
 }
 
 export function getExchangeRateEntityFromDto(

@@ -8,7 +8,7 @@ import { ICommonDao } from '../../common/common.dao';
 import { TransactionEntity } from './entity/transaction.entity';
 import { UserEntity } from '../user/entity/user.entity';
 
-export abstract class ITransactionDao extends ICommonDao<TransactionEntity> {
+abstract class ITransactionDao extends ICommonDao<TransactionEntity> {
   constructor() {
     super(TransactionEntity);
   }
@@ -17,7 +17,7 @@ export abstract class ITransactionDao extends ICommonDao<TransactionEntity> {
     resource: DeepPartial<TransactionEntity>
   ): Promise<InsertResult>;
 }
-
+// tslint:disable-next-line:max-classes-per-file
 export class TransactionDao extends ITransactionDao {
   constructor() {
     super();
@@ -47,7 +47,7 @@ export class TransactionDao extends ITransactionDao {
   }
 
   deleteResource(resource: TransactionEntity): Promise<TransactionEntity> {
-    throw new Error('Method not implemented.');
+    return this.repo.remove(resource);
   }
   updateResource(resource: TransactionEntity): Promise<TransactionEntity> {
     throw new Error('Method not implemented.');

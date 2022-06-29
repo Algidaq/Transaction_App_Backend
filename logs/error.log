@@ -1,0 +1,266 @@
+[31m{[39m
+[31m  query: 'INSERT INTO `transactions`(`id`, `date`, `type`, `amount`, `balance_snapshot`, `comment`, `customerId`, `fromAccountCurrencyId`, `fromAccountCustomerId`, `exchangeRateId`, `transactionInfoId`, `localTransactionInfoId`) VALUES (?, DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, DEFAULT, DEFAULT)',[39m
+[31m  parameters: [[39m
+[31m    '182891f9-2f3b-493a-9377-e76200a4505d',[39m
+[31m    'localeTransfer',[39m
+[31m    200,[39m
+[31m    100,[39m
+[31m    'N/A',[39m
+[31m    'ecfdcba8-3f41-426b-baa3-f6ab8911def6',[39m
+[31m    1,[39m
+[31m    'ecfdcba8-3f41-426b-baa3-f6ab8911def6',[39m
+[31m    31[39m
+[31m  ],[39m
+[31m  driverError: Error: Cannot add or update a child row: a foreign key constraint fails (`transaction_app`.`transactions`, CONSTRAINT `FK_e0a9ec20ec5be1f92f1d7d3bef8` FOREIGN KEY (`fromAccountCurrencyId`, `fromAccountCustomerId`) REFERENCES `accounts` (`currencyId`, `customerId`))[39m
+[31m      at Packet.asError (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/packets/packet.js:728:17)[39m
+[31m      at Query.execute (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/commands/command.js:29:26)[39m
+[31m      at PoolConnection.handlePacket (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/connection.js:456:32)[39m
+[31m      at PacketParser.onPacket (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/connection.js:85:12)[39m
+[31m      at PacketParser.executeStart (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/packet_parser.js:75:16)[39m
+[31m      at Socket.<anonymous> (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/connection.js:92:25)[39m
+[31m      at Socket.emit (events.js:315:20)[39m
+[31m      at Socket.EventEmitter.emit (domain.js:486:12)[39m
+[31m      at addChunk (_stream_readable.js:309:12)[39m
+[31m      at readableAddChunk (_stream_readable.js:284:9) {[39m
+[31m    code: 'ER_NO_REFERENCED_ROW_2',[39m
+[31m    errno: 1452,[39m
+[31m    sqlState: '23000',[39m
+[31m    sqlMessage: 'Cannot add or update a child row: a foreign key constraint fails (`transaction_app`.`transactions`, CONSTRAINT `FK_e0a9ec20ec5be1f92f1d7d3bef8` FOREIGN KEY (`fromAccountCurrencyId`, `fromAccountCustomerId`) REFERENCES `accounts` (`currencyId`, `customerId`))',[39m
+[31m    sql: "INSERT INTO `transactions`(`id`, `date`, `type`, `amount`, `balance_snapshot`, `comment`, `customerId`, `fromAccountCurrencyId`, `fromAccountCustomerId`, `exchangeRateId`, `transactionInfoId`, `localTransactionInfoId`) VALUES ('182891f9-2f3b-493a-9377-e76200a4505d', DEFAULT, 'localeTransfer', 200, 100, 'N/A', 'ecfdcba8-3f41-426b-baa3-f6ab8911def6', 1, 'ecfdcba8-3f41-426b-baa3-f6ab8911def6', 31, DEFAULT, DEFAULT)"[39m
+[31m  },[39m
+[31m  code: 'ER_NO_REFERENCED_ROW_2',[39m
+[31m  errno: 1452,[39m
+[31m  sqlState: '23000',[39m
+[31m  sqlMessage: 'Cannot add or update a child row: a foreign key constraint fails (`transaction_app`.`transactions`, CONSTRAINT `FK_e0a9ec20ec5be1f92f1d7d3bef8` FOREIGN KEY (`fromAccountCurrencyId`, `fromAccountCustomerId`) REFERENCES `accounts` (`currencyId`, `customerId`))',[39m
+[31m  sql: "INSERT INTO `transactions`(`id`, `date`, `type`, `amount`, `balance_snapshot`, `comment`, `customerId`, `fromAccountCurrencyId`, `fromAccountCustomerId`, `exchangeRateId`, `transactionInfoId`, `localTransactionInfoId`) VALUES ('182891f9-2f3b-493a-9377-e76200a4505d', DEFAULT, 'localeTransfer', 200, 100, 'N/A', 'ecfdcba8-3f41-426b-baa3-f6ab8911def6', 1, 'ecfdcba8-3f41-426b-baa3-f6ab8911def6', 31, DEFAULT, DEFAULT)",[39m
+[31m  level: '\x1B[31merror\x1B[39m'[39m
+[31m}[39m
+[31m{ level: '\x1B[31merror\x1B[39m' }[39m
+[31m{[39m
+[31m  query: 'INSERT INTO `transactions`(`id`, `date`, `type`, `amount`, `balance_snapshot`, `comment`, `customerId`, `fromAccountCurrencyId`, `fromAccountCustomerId`, `exchangeRateId`, `transactionInfoId`, `localTransactionInfoId`) VALUES (?, DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, DEFAULT, DEFAULT)',[39m
+[31m  parameters: [[39m
+[31m    '79353983-e226-478a-a70b-8b8e4ebbb5d9',[39m
+[31m    'localeTransfer',[39m
+[31m    200,[39m
+[31m    100,[39m
+[31m    'N/A',[39m
+[31m    'ecfdcba8-3f41-426b-baa3-f6ab8911def6',[39m
+[31m    1,[39m
+[31m    'ecfdcba8-3f41-426b-baa3-f6ab8911def6',[39m
+[31m    32[39m
+[31m  ],[39m
+[31m  driverError: Error: Cannot add or update a child row: a foreign key constraint fails (`transaction_app`.`transactions`, CONSTRAINT `FK_e0a9ec20ec5be1f92f1d7d3bef8` FOREIGN KEY (`fromAccountCurrencyId`, `fromAccountCustomerId`) REFERENCES `accounts` (`currencyId`, `customerId`))[39m
+[31m      at Packet.asError (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/packets/packet.js:728:17)[39m
+[31m      at Query.execute (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/commands/command.js:29:26)[39m
+[31m      at PoolConnection.handlePacket (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/connection.js:456:32)[39m
+[31m      at PacketParser.onPacket (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/connection.js:85:12)[39m
+[31m      at PacketParser.executeStart (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/packet_parser.js:75:16)[39m
+[31m      at Socket.<anonymous> (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/connection.js:92:25)[39m
+[31m      at Socket.emit (events.js:315:20)[39m
+[31m      at Socket.EventEmitter.emit (domain.js:486:12)[39m
+[31m      at addChunk (_stream_readable.js:309:12)[39m
+[31m      at readableAddChunk (_stream_readable.js:284:9) {[39m
+[31m    code: 'ER_NO_REFERENCED_ROW_2',[39m
+[31m    errno: 1452,[39m
+[31m    sqlState: '23000',[39m
+[31m    sqlMessage: 'Cannot add or update a child row: a foreign key constraint fails (`transaction_app`.`transactions`, CONSTRAINT `FK_e0a9ec20ec5be1f92f1d7d3bef8` FOREIGN KEY (`fromAccountCurrencyId`, `fromAccountCustomerId`) REFERENCES `accounts` (`currencyId`, `customerId`))',[39m
+[31m    sql: "INSERT INTO `transactions`(`id`, `date`, `type`, `amount`, `balance_snapshot`, `comment`, `customerId`, `fromAccountCurrencyId`, `fromAccountCustomerId`, `exchangeRateId`, `transactionInfoId`, `localTransactionInfoId`) VALUES ('79353983-e226-478a-a70b-8b8e4ebbb5d9', DEFAULT, 'localeTransfer', 200, 100, 'N/A', 'ecfdcba8-3f41-426b-baa3-f6ab8911def6', 1, 'ecfdcba8-3f41-426b-baa3-f6ab8911def6', 32, DEFAULT, DEFAULT)"[39m
+[31m  },[39m
+[31m  code: 'ER_NO_REFERENCED_ROW_2',[39m
+[31m  errno: 1452,[39m
+[31m  sqlState: '23000',[39m
+[31m  sqlMessage: 'Cannot add or update a child row: a foreign key constraint fails (`transaction_app`.`transactions`, CONSTRAINT `FK_e0a9ec20ec5be1f92f1d7d3bef8` FOREIGN KEY (`fromAccountCurrencyId`, `fromAccountCustomerId`) REFERENCES `accounts` (`currencyId`, `customerId`))',[39m
+[31m  sql: "INSERT INTO `transactions`(`id`, `date`, `type`, `amount`, `balance_snapshot`, `comment`, `customerId`, `fromAccountCurrencyId`, `fromAccountCustomerId`, `exchangeRateId`, `transactionInfoId`, `localTransactionInfoId`) VALUES ('79353983-e226-478a-a70b-8b8e4ebbb5d9', DEFAULT, 'localeTransfer', 200, 100, 'N/A', 'ecfdcba8-3f41-426b-baa3-f6ab8911def6', 1, 'ecfdcba8-3f41-426b-baa3-f6ab8911def6', 32, DEFAULT, DEFAULT)",[39m
+[31m  level: '\x1B[31merror\x1B[39m'[39m
+[31m}[39m
+[31m{ level: '\x1B[31merror\x1B[39m' }[39m
+[31m{[39m
+[31m  query: 'INSERT INTO `transactions`(`id`, `date`, `type`, `amount`, `balance_snapshot`, `comment`, `customerId`, `fromAccountCurrencyId`, `fromAccountCustomerId`, `exchangeRateId`, `transactionInfoId`, `localTransactionInfoId`) VALUES (?, DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, DEFAULT, DEFAULT)',[39m
+[31m  parameters: [[39m
+[31m    'df8ba48c-e2c9-4588-93cc-168313660b40',[39m
+[31m    'localeTransfer',[39m
+[31m    200,[39m
+[31m    100,[39m
+[31m    'N/A',[39m
+[31m    'ecfdcba8-3f41-426b-baa3-f6ab8911def6',[39m
+[31m    1,[39m
+[31m    'ecfdcba8-3f41-426b-baa3-f6ab8911def6',[39m
+[31m    33[39m
+[31m  ],[39m
+[31m  driverError: Error: Cannot add or update a child row: a foreign key constraint fails (`transaction_app`.`transactions`, CONSTRAINT `FK_e0a9ec20ec5be1f92f1d7d3bef8` FOREIGN KEY (`fromAccountCurrencyId`, `fromAccountCustomerId`) REFERENCES `accounts` (`currencyId`, `customerId`))[39m
+[31m      at Packet.asError (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/packets/packet.js:728:17)[39m
+[31m      at Query.execute (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/commands/command.js:29:26)[39m
+[31m      at PoolConnection.handlePacket (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/connection.js:456:32)[39m
+[31m      at PacketParser.onPacket (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/connection.js:85:12)[39m
+[31m      at PacketParser.executeStart (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/packet_parser.js:75:16)[39m
+[31m      at Socket.<anonymous> (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/connection.js:92:25)[39m
+[31m      at Socket.emit (events.js:315:20)[39m
+[31m      at Socket.EventEmitter.emit (domain.js:486:12)[39m
+[31m      at addChunk (_stream_readable.js:309:12)[39m
+[31m      at readableAddChunk (_stream_readable.js:284:9) {[39m
+[31m    code: 'ER_NO_REFERENCED_ROW_2',[39m
+[31m    errno: 1452,[39m
+[31m    sqlState: '23000',[39m
+[31m    sqlMessage: 'Cannot add or update a child row: a foreign key constraint fails (`transaction_app`.`transactions`, CONSTRAINT `FK_e0a9ec20ec5be1f92f1d7d3bef8` FOREIGN KEY (`fromAccountCurrencyId`, `fromAccountCustomerId`) REFERENCES `accounts` (`currencyId`, `customerId`))',[39m
+[31m    sql: "INSERT INTO `transactions`(`id`, `date`, `type`, `amount`, `balance_snapshot`, `comment`, `customerId`, `fromAccountCurrencyId`, `fromAccountCustomerId`, `exchangeRateId`, `transactionInfoId`, `localTransactionInfoId`) VALUES ('df8ba48c-e2c9-4588-93cc-168313660b40', DEFAULT, 'localeTransfer', 200, 100, 'N/A', 'ecfdcba8-3f41-426b-baa3-f6ab8911def6', 1, 'ecfdcba8-3f41-426b-baa3-f6ab8911def6', 33, DEFAULT, DEFAULT)"[39m
+[31m  },[39m
+[31m  code: 'ER_NO_REFERENCED_ROW_2',[39m
+[31m  errno: 1452,[39m
+[31m  sqlState: '23000',[39m
+[31m  sqlMessage: 'Cannot add or update a child row: a foreign key constraint fails (`transaction_app`.`transactions`, CONSTRAINT `FK_e0a9ec20ec5be1f92f1d7d3bef8` FOREIGN KEY (`fromAccountCurrencyId`, `fromAccountCustomerId`) REFERENCES `accounts` (`currencyId`, `customerId`))',[39m
+[31m  sql: "INSERT INTO `transactions`(`id`, `date`, `type`, `amount`, `balance_snapshot`, `comment`, `customerId`, `fromAccountCurrencyId`, `fromAccountCustomerId`, `exchangeRateId`, `transactionInfoId`, `localTransactionInfoId`) VALUES ('df8ba48c-e2c9-4588-93cc-168313660b40', DEFAULT, 'localeTransfer', 200, 100, 'N/A', 'ecfdcba8-3f41-426b-baa3-f6ab8911def6', 1, 'ecfdcba8-3f41-426b-baa3-f6ab8911def6', 33, DEFAULT, DEFAULT)",[39m
+[31m  level: '\x1B[31merror\x1B[39m'[39m
+[31m}[39m
+[31m{ level: '\x1B[31merror\x1B[39m' }[39m
+[31m{[39m
+[31m  query: 'INSERT INTO `transactions`(`id`, `date`, `type`, `amount`, `balance_snapshot`, `comment`, `customerId`, `fromAccountCurrencyId`, `fromAccountCustomerId`, `exchangeRateId`, `transactionInfoId`, `localTransactionInfoId`) VALUES (?, DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, DEFAULT, DEFAULT)',[39m
+[31m  parameters: [[39m
+[31m    '1fd9f541-b96c-4975-9c18-7ccdd4b26df1',[39m
+[31m    'globalTransfer',[39m
+[31m    200,[39m
+[31m    100,[39m
+[31m    'N/A',[39m
+[31m    'ecfdcba8-3f41-426b-baa3-f6ab8911def6',[39m
+[31m    1,[39m
+[31m    'ecfdcba8-3f41-426b-baa3-f6ab8911def6',[39m
+[31m    34[39m
+[31m  ],[39m
+[31m  driverError: Error: Cannot add or update a child row: a foreign key constraint fails (`transaction_app`.`transactions`, CONSTRAINT `FK_e0a9ec20ec5be1f92f1d7d3bef8` FOREIGN KEY (`fromAccountCurrencyId`, `fromAccountCustomerId`) REFERENCES `accounts` (`currencyId`, `customerId`))[39m
+[31m      at Packet.asError (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/packets/packet.js:728:17)[39m
+[31m      at Query.execute (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/commands/command.js:29:26)[39m
+[31m      at PoolConnection.handlePacket (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/connection.js:456:32)[39m
+[31m      at PacketParser.onPacket (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/connection.js:85:12)[39m
+[31m      at PacketParser.executeStart (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/packet_parser.js:75:16)[39m
+[31m      at Socket.<anonymous> (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/connection.js:92:25)[39m
+[31m      at Socket.emit (events.js:315:20)[39m
+[31m      at Socket.EventEmitter.emit (domain.js:486:12)[39m
+[31m      at addChunk (_stream_readable.js:309:12)[39m
+[31m      at readableAddChunk (_stream_readable.js:284:9) {[39m
+[31m    code: 'ER_NO_REFERENCED_ROW_2',[39m
+[31m    errno: 1452,[39m
+[31m    sqlState: '23000',[39m
+[31m    sqlMessage: 'Cannot add or update a child row: a foreign key constraint fails (`transaction_app`.`transactions`, CONSTRAINT `FK_e0a9ec20ec5be1f92f1d7d3bef8` FOREIGN KEY (`fromAccountCurrencyId`, `fromAccountCustomerId`) REFERENCES `accounts` (`currencyId`, `customerId`))',[39m
+[31m    sql: "INSERT INTO `transactions`(`id`, `date`, `type`, `amount`, `balance_snapshot`, `comment`, `customerId`, `fromAccountCurrencyId`, `fromAccountCustomerId`, `exchangeRateId`, `transactionInfoId`, `localTransactionInfoId`) VALUES ('1fd9f541-b96c-4975-9c18-7ccdd4b26df1', DEFAULT, 'globalTransfer', 200, 100, 'N/A', 'ecfdcba8-3f41-426b-baa3-f6ab8911def6', 1, 'ecfdcba8-3f41-426b-baa3-f6ab8911def6', 34, DEFAULT, DEFAULT)"[39m
+[31m  },[39m
+[31m  code: 'ER_NO_REFERENCED_ROW_2',[39m
+[31m  errno: 1452,[39m
+[31m  sqlState: '23000',[39m
+[31m  sqlMessage: 'Cannot add or update a child row: a foreign key constraint fails (`transaction_app`.`transactions`, CONSTRAINT `FK_e0a9ec20ec5be1f92f1d7d3bef8` FOREIGN KEY (`fromAccountCurrencyId`, `fromAccountCustomerId`) REFERENCES `accounts` (`currencyId`, `customerId`))',[39m
+[31m  sql: "INSERT INTO `transactions`(`id`, `date`, `type`, `amount`, `balance_snapshot`, `comment`, `customerId`, `fromAccountCurrencyId`, `fromAccountCustomerId`, `exchangeRateId`, `transactionInfoId`, `localTransactionInfoId`) VALUES ('1fd9f541-b96c-4975-9c18-7ccdd4b26df1', DEFAULT, 'globalTransfer', 200, 100, 'N/A', 'ecfdcba8-3f41-426b-baa3-f6ab8911def6', 1, 'ecfdcba8-3f41-426b-baa3-f6ab8911def6', 34, DEFAULT, DEFAULT)",[39m
+[31m  level: '\x1B[31merror\x1B[39m'[39m
+[31m}[39m
+[31m{ level: '\x1B[31merror\x1B[39m' }[39m
+[31m{[39m
+[31m  query: 'INSERT INTO `transactions`(`id`, `date`, `type`, `amount`, `balance_snapshot`, `comment`, `customerId`, `fromAccountCurrencyId`, `fromAccountCustomerId`, `exchangeRateId`, `transactionInfoId`, `localTransactionInfoId`) VALUES (?, DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, DEFAULT, DEFAULT)',[39m
+[31m  parameters: [[39m
+[31m    '375945a9-a61f-4b5a-9091-e8cc94096d48',[39m
+[31m    'globalTransfer',[39m
+[31m    200,[39m
+[31m    100,[39m
+[31m    'N/A',[39m
+[31m    'ecfdcba8-3f41-426b-baa3-f6ab8911def6',[39m
+[31m    1,[39m
+[31m    'ecfdcba8-3f41-426b-baa3-f6ab8911def6',[39m
+[31m    35[39m
+[31m  ],[39m
+[31m  driverError: Error: Cannot add or update a child row: a foreign key constraint fails (`transaction_app`.`transactions`, CONSTRAINT `FK_e0a9ec20ec5be1f92f1d7d3bef8` FOREIGN KEY (`fromAccountCurrencyId`, `fromAccountCustomerId`) REFERENCES `accounts` (`currencyId`, `customerId`))[39m
+[31m      at Packet.asError (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/packets/packet.js:728:17)[39m
+[31m      at Query.execute (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/commands/command.js:29:26)[39m
+[31m      at PoolConnection.handlePacket (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/connection.js:456:32)[39m
+[31m      at PacketParser.onPacket (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/connection.js:85:12)[39m
+[31m      at PacketParser.executeStart (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/packet_parser.js:75:16)[39m
+[31m      at Socket.<anonymous> (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/connection.js:92:25)[39m
+[31m      at Socket.emit (events.js:315:20)[39m
+[31m      at Socket.EventEmitter.emit (domain.js:486:12)[39m
+[31m      at addChunk (_stream_readable.js:309:12)[39m
+[31m      at readableAddChunk (_stream_readable.js:284:9) {[39m
+[31m    code: 'ER_NO_REFERENCED_ROW_2',[39m
+[31m    errno: 1452,[39m
+[31m    sqlState: '23000',[39m
+[31m    sqlMessage: 'Cannot add or update a child row: a foreign key constraint fails (`transaction_app`.`transactions`, CONSTRAINT `FK_e0a9ec20ec5be1f92f1d7d3bef8` FOREIGN KEY (`fromAccountCurrencyId`, `fromAccountCustomerId`) REFERENCES `accounts` (`currencyId`, `customerId`))',[39m
+[31m    sql: "INSERT INTO `transactions`(`id`, `date`, `type`, `amount`, `balance_snapshot`, `comment`, `customerId`, `fromAccountCurrencyId`, `fromAccountCustomerId`, `exchangeRateId`, `transactionInfoId`, `localTransactionInfoId`) VALUES ('375945a9-a61f-4b5a-9091-e8cc94096d48', DEFAULT, 'globalTransfer', 200, 100, 'N/A', 'ecfdcba8-3f41-426b-baa3-f6ab8911def6', 1, 'ecfdcba8-3f41-426b-baa3-f6ab8911def6', 35, DEFAULT, DEFAULT)"[39m
+[31m  },[39m
+[31m  code: 'ER_NO_REFERENCED_ROW_2',[39m
+[31m  errno: 1452,[39m
+[31m  sqlState: '23000',[39m
+[31m  sqlMessage: 'Cannot add or update a child row: a foreign key constraint fails (`transaction_app`.`transactions`, CONSTRAINT `FK_e0a9ec20ec5be1f92f1d7d3bef8` FOREIGN KEY (`fromAccountCurrencyId`, `fromAccountCustomerId`) REFERENCES `accounts` (`currencyId`, `customerId`))',[39m
+[31m  sql: "INSERT INTO `transactions`(`id`, `date`, `type`, `amount`, `balance_snapshot`, `comment`, `customerId`, `fromAccountCurrencyId`, `fromAccountCustomerId`, `exchangeRateId`, `transactionInfoId`, `localTransactionInfoId`) VALUES ('375945a9-a61f-4b5a-9091-e8cc94096d48', DEFAULT, 'globalTransfer', 200, 100, 'N/A', 'ecfdcba8-3f41-426b-baa3-f6ab8911def6', 1, 'ecfdcba8-3f41-426b-baa3-f6ab8911def6', 35, DEFAULT, DEFAULT)",[39m
+[31m  level: '\x1B[31merror\x1B[39m'[39m
+[31m}[39m
+[31m{ level: '\x1B[31merror\x1B[39m' }[39m
+[31m{[39m
+[31m  query: 'INSERT INTO `transactions`(`id`, `date`, `type`, `amount`, `balance_snapshot`, `comment`, `customerId`, `fromAccountCurrencyId`, `fromAccountCustomerId`, `exchangeRateId`, `transactionInfoId`, `localTransactionInfoId`) VALUES (?, DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, DEFAULT, DEFAULT)',[39m
+[31m  parameters: [[39m
+[31m    'da8b9369-6952-4698-b2f5-69a0527376e0',[39m
+[31m    'globalTransfer',[39m
+[31m    200,[39m
+[31m    100,[39m
+[31m    'N/A',[39m
+[31m    'ecfdcba8-3f41-426b-baa3-f6ab8911def6',[39m
+[31m    1,[39m
+[31m    'ecfdcba8-3f41-426b-baa3-f6ab8911def6',[39m
+[31m    36[39m
+[31m  ],[39m
+[31m  driverError: Error: Cannot add or update a child row: a foreign key constraint fails (`transaction_app`.`transactions`, CONSTRAINT `FK_e0a9ec20ec5be1f92f1d7d3bef8` FOREIGN KEY (`fromAccountCurrencyId`, `fromAccountCustomerId`) REFERENCES `accounts` (`currencyId`, `customerId`))[39m
+[31m      at Packet.asError (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/packets/packet.js:728:17)[39m
+[31m      at Query.execute (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/commands/command.js:29:26)[39m
+[31m      at PoolConnection.handlePacket (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/connection.js:456:32)[39m
+[31m      at PacketParser.onPacket (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/connection.js:85:12)[39m
+[31m      at PacketParser.executeStart (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/packet_parser.js:75:16)[39m
+[31m      at Socket.<anonymous> (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/connection.js:92:25)[39m
+[31m      at Socket.emit (events.js:315:20)[39m
+[31m      at Socket.EventEmitter.emit (domain.js:486:12)[39m
+[31m      at addChunk (_stream_readable.js:309:12)[39m
+[31m      at readableAddChunk (_stream_readable.js:284:9) {[39m
+[31m    code: 'ER_NO_REFERENCED_ROW_2',[39m
+[31m    errno: 1452,[39m
+[31m    sqlState: '23000',[39m
+[31m    sqlMessage: 'Cannot add or update a child row: a foreign key constraint fails (`transaction_app`.`transactions`, CONSTRAINT `FK_e0a9ec20ec5be1f92f1d7d3bef8` FOREIGN KEY (`fromAccountCurrencyId`, `fromAccountCustomerId`) REFERENCES `accounts` (`currencyId`, `customerId`))',[39m
+[31m    sql: "INSERT INTO `transactions`(`id`, `date`, `type`, `amount`, `balance_snapshot`, `comment`, `customerId`, `fromAccountCurrencyId`, `fromAccountCustomerId`, `exchangeRateId`, `transactionInfoId`, `localTransactionInfoId`) VALUES ('da8b9369-6952-4698-b2f5-69a0527376e0', DEFAULT, 'globalTransfer', 200, 100, 'N/A', 'ecfdcba8-3f41-426b-baa3-f6ab8911def6', 1, 'ecfdcba8-3f41-426b-baa3-f6ab8911def6', 36, DEFAULT, DEFAULT)"[39m
+[31m  },[39m
+[31m  code: 'ER_NO_REFERENCED_ROW_2',[39m
+[31m  errno: 1452,[39m
+[31m  sqlState: '23000',[39m
+[31m  sqlMessage: 'Cannot add or update a child row: a foreign key constraint fails (`transaction_app`.`transactions`, CONSTRAINT `FK_e0a9ec20ec5be1f92f1d7d3bef8` FOREIGN KEY (`fromAccountCurrencyId`, `fromAccountCustomerId`) REFERENCES `accounts` (`currencyId`, `customerId`))',[39m
+[31m  sql: "INSERT INTO `transactions`(`id`, `date`, `type`, `amount`, `balance_snapshot`, `comment`, `customerId`, `fromAccountCurrencyId`, `fromAccountCustomerId`, `exchangeRateId`, `transactionInfoId`, `localTransactionInfoId`) VALUES ('da8b9369-6952-4698-b2f5-69a0527376e0', DEFAULT, 'globalTransfer', 200, 100, 'N/A', 'ecfdcba8-3f41-426b-baa3-f6ab8911def6', 1, 'ecfdcba8-3f41-426b-baa3-f6ab8911def6', 36, DEFAULT, DEFAULT)",[39m
+[31m  level: '\x1B[31merror\x1B[39m'[39m
+[31m}[39m
+[31m{ level: '\x1B[31merror\x1B[39m' }[39m
+[31m{[39m
+[31m  query: 'INSERT INTO `transactions`(`id`, `date`, `type`, `amount`, `balance_snapshot`, `comment`, `customerId`, `fromAccountCurrencyId`, `fromAccountCustomerId`, `exchangeRateId`, `transactionInfoId`, `localTransactionInfoId`) VALUES (?, DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, DEFAULT, DEFAULT)',[39m
+[31m  parameters: [[39m
+[31m    '247051a5-2086-47ba-bd7d-efeb32595b31',[39m
+[31m    'globalTransfer',[39m
+[31m    200,[39m
+[31m    100,[39m
+[31m    'N/A',[39m
+[31m    'ecfdcba8-3f41-426b-baa3-f6ab8911def6',[39m
+[31m    1,[39m
+[31m    'ecfdcba8-3f41-426b-baa3-f6ab8911def6',[39m
+[31m    37[39m
+[31m  ],[39m
+[31m  driverError: Error: Cannot add or update a child row: a foreign key constraint fails (`transaction_app`.`transactions`, CONSTRAINT `FK_e0a9ec20ec5be1f92f1d7d3bef8` FOREIGN KEY (`fromAccountCurrencyId`, `fromAccountCustomerId`) REFERENCES `accounts` (`currencyId`, `customerId`))[39m
+[31m      at Packet.asError (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/packets/packet.js:728:17)[39m
+[31m      at Query.execute (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/commands/command.js:29:26)[39m
+[31m      at PoolConnection.handlePacket (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/connection.js:456:32)[39m
+[31m      at PacketParser.onPacket (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/connection.js:85:12)[39m
+[31m      at PacketParser.executeStart (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/packet_parser.js:75:16)[39m
+[31m      at Socket.<anonymous> (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/connection.js:92:25)[39m
+[31m      at Socket.emit (events.js:315:20)[39m
+[31m      at Socket.EventEmitter.emit (domain.js:486:12)[39m
+[31m      at addChunk (_stream_readable.js:309:12)[39m
+[31m      at readableAddChunk (_stream_readable.js:284:9) {[39m
+[31m    code: 'ER_NO_REFERENCED_ROW_2',[39m
+[31m    errno: 1452,[39m
+[31m    sqlState: '23000',[39m
+[31m    sqlMessage: 'Cannot add or update a child row: a foreign key constraint fails (`transaction_app`.`transactions`, CONSTRAINT `FK_e0a9ec20ec5be1f92f1d7d3bef8` FOREIGN KEY (`fromAccountCurrencyId`, `fromAccountCustomerId`) REFERENCES `accounts` (`currencyId`, `customerId`))',[39m
+[31m    sql: "INSERT INTO `transactions`(`id`, `date`, `type`, `amount`, `balance_snapshot`, `comment`, `customerId`, `fromAccountCurrencyId`, `fromAccountCustomerId`, `exchangeRateId`, `transactionInfoId`, `localTransactionInfoId`) VALUES ('247051a5-2086-47ba-bd7d-efeb32595b31', DEFAULT, 'globalTransfer', 200, 100, 'N/A', 'ecfdcba8-3f41-426b-baa3-f6ab8911def6', 1, 'ecfdcba8-3f41-426b-baa3-f6ab8911def6', 37, DEFAULT, DEFAULT)"[39m
+[31m  },[39m
+[31m  code: 'ER_NO_REFERENCED_ROW_2',[39m
+[31m  errno: 1452,[39m
+[31m  sqlState: '23000',[39m
+[31m  sqlMessage: 'Cannot add or update a child row: a foreign key constraint fails (`transaction_app`.`transactions`, CONSTRAINT `FK_e0a9ec20ec5be1f92f1d7d3bef8` FOREIGN KEY (`fromAccountCurrencyId`, `fromAccountCustomerId`) REFERENCES `accounts` (`currencyId`, `customerId`))',[39m
+[31m  sql: "INSERT INTO `transactions`(`id`, `date`, `type`, `amount`, `balance_snapshot`, `comment`, `customerId`, `fromAccountCurrencyId`, `fromAccountCustomerId`, `exchangeRateId`, `transactionInfoId`, `localTransactionInfoId`) VALUES ('247051a5-2086-47ba-bd7d-efeb32595b31', DEFAULT, 'globalTransfer', 200, 100, 'N/A', 'ecfdcba8-3f41-426b-baa3-f6ab8911def6', 1, 'ecfdcba8-3f41-426b-baa3-f6ab8911def6', 37, DEFAULT, DEFAULT)",[39m
+[31m  level: '\x1B[31merror\x1B[39m'[39m
+[31m}[39m
+[31m{ level: '\x1B[31merror\x1B[39m' }[39m

@@ -1,12 +1,13 @@
 import express from 'express';
 import { RoleEntity } from '../modules/role/role.entity';
 import { RoleDao } from '../modules/role/role.dao';
+import { Logger } from '../utils/logger';
 export abstract class CommonRoutesConfig<T> {
-  private _name: String;
+  private _name: string;
   app: express.Application;
   constructor(
     app: express.Application,
-    name: String,
+    name: string,
     public controller: T,
     public userRoles: RoleEntity[] = []
   ) {
@@ -15,7 +16,7 @@ export abstract class CommonRoutesConfig<T> {
     this.configureRoutes();
   }
 
-  get name(): String {
+  get name(): string {
     return this._name;
   }
 
@@ -25,10 +26,10 @@ export abstract class CommonRoutesConfig<T> {
   }
 
   private getUserRoleByName = (name: string): RoleEntity | undefined => {
-    let index = this.userRoles.findIndex(
+    const index = this.userRoles.findIndex(
       (element) => element.role.toLowerCase() === name.toLowerCase()
     );
-    console.log('inndex', index);
+    Logger.info('inndex', index);
     if (index === -1) return;
     return this.userRoles[index];
   };

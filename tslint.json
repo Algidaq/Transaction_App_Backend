@@ -4,7 +4,10 @@
   "jsRules": {},
   "rules": {
     "prettier": true,
-    "quotemark": [true, "single"]
+    "quotemark": [true, "single"],
+    "radix":false,
+    "object-literal-shorthand":false
   },
   "rulesDirectory": []
+  
 }

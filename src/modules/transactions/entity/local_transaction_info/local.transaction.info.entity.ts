@@ -6,10 +6,8 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import {
-  CustomerEntity,
-  AccountEntity,
-} from '../../../customers/customer.entity';
+import { CustomerEntity } from '../../../customers/customer.entity';
+import { AccountEntity } from '../../../customers/accounts/customer.account.entity';
 
 @Entity({ name: 'local_transaction_info' })
 export class LocalTransactionInfoEntity {

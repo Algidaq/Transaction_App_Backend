@@ -11,6 +11,7 @@ import {
   ManyToOne,
   OneToMany,
 } from 'typeorm';
+import { AccountEntity } from './accounts/customer.account.entity';
 
 @Entity({ name: 'customers' })
 export class CustomerEntity {
@@ -37,35 +38,4 @@ export interface IGetAccountEntity {
   id: string;
   balance: number;
   currency: CurrencyEntity;
-}
-
-@Entity({ name: 'accounts' })
-/**
- *
- */
-export class AccountEntity {
-  @Column({ name: 'id', generated: 'uuid' })
-  id!: string;
-
-  @Column({ name: 'balance', type: 'float', nullable: false, default: 0.0 })
-  balance!: number;
-
-  @ManyToOne(() => CurrencyEntity, { eager: true, nullable: false })
-  @JoinColumn({ name: 'currencyId' })
-  currency!: CurrencyEntity;
-
-  @PrimaryColumn({ name: 'currencyId', select: false })
-  currencyId!: number;
-
-  @ManyToOne(() => CustomerEntity, (customer) => customer.accounts)
-  @JoinColumn({ name: 'customerId', referencedColumnName: 'id' })
-  customer!: CustomerEntity;
-
-  @PrimaryColumn({ name: 'customerId', select: false })
-  customerId!: string;
-
-  @CreateDateColumn({ name: 'create_date' })
-  createDate!: string;
-  @UpdateDateColumn({ name: 'update_date' })
-  updateDate!: string;
 }

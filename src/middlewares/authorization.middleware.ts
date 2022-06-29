@@ -1,9 +1,9 @@
-import { RoleEntity } from '../modules/role/role.entity';
 import express from 'express';
 import networkHandler from '../utils/network.handler';
 import { kPrivateKey } from '../utils/utils';
 import * as jwt from 'jsonwebtoken';
 import { IGetUserDto } from '../modules/user/models/user.dto';
+import { Logger } from '../utils/logger';
 export class AuthorizationMiddleware {
   isAuthorizedUser = (
     req: express.Request,
@@ -17,7 +17,7 @@ export class AuthorizationMiddleware {
       (req as any).user = user;
       next();
     } catch (e) {
-      console.error(e);
+      Logger.error(e);
       return networkHandler.unauthorized(res);
     }
   };
@@ -28,9 +28,9 @@ export class AuthorizationMiddleware {
       next: express.NextFunction
     ) => {
       if (!roles) return networkHandler.badRequest(res, 'No Roles where found');
-      let user: IGetUserDto = (req as any).user;
-      let index = roles.findIndex((role) => (role = user.role.role));
-      if (index == -1) return networkHandler.forbidden(res);
+      const user: IGetUserDto = (req as any).user;
+      const index = roles.findIndex((role) => (role = user.role.role));
+      if (index === -1) return networkHandler.forbidden(res);
       next();
     };
   };

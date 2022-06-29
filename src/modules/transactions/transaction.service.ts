@@ -1,114 +1,89 @@
-import { QueryRunner } from 'typeorm';
-import { CustomerEntity, AccountEntity } from '../customers/customer.entity';
-import { TransactionExchangeRateEntity } from './entity/exchange_rate/exchange.rate.entity';
-import { ICreateTransactionDto, ICreateExchangeRate } from './transactions.dto';
-import { TransactionEntity } from './entity/transaction.entity';
-import { TransactionType } from './types/transactions.types';
-import { CurrencyEntity } from '../currency/currency.entity';
 import { TransactionDao } from './transaction.dao';
+import { TransactionEntity } from './entity/transaction.entity';
+import { ITransactionQueryParams } from './transactions.dto';
+import { getPagination } from '../../utils/utils';
+import {
+  FindManyOptions,
+  FindOptionsWhere,
+  Like,
+  FindOneOptions,
+  FindOptionsOrder,
+  FindOptionsOrderValue,
+} from 'typeorm';
+import moment from 'moment';
+import { TransactionType } from './types/transactions.types';
+import { OrderType } from '../../common/common.queryparams';
+import { Logger } from '../../utils/logger';
+export class TransactionService {
+  constructor(private dao: TransactionDao = new TransactionDao()) {}
 
-export abstract class ITransactionService {
-  constructor(public transactionDao: TransactionDao = new TransactionDao()) {}
-  async makeTransaction(
-    queryRunner: QueryRunner,
-    body: any,
-    customer: CustomerEntity,
-    fromAccount: AccountEntity,
-    type: TransactionType,
-    toCurrency: CurrencyEntity
-  ): Promise<[QueryRunner, TransactionEntity, ICreateTransactionDto]> {
-    await queryRunner.connect();
-    await queryRunner.startTransaction();
-    try {
-      /// get Dto from Body
-      const dto = this.getTransactionDto(
-        body,
-        customer,
-        fromAccount,
-        toCurrency
-      );
-      // get ExhangeRate Entity to be saved
-      const exchangeRate = this.getExchangeRateEntityFromDto(
-        dto.exchangeRate,
-        dto.amount
-      );
-      // save ExchangRateEntity
-      await queryRunner.manager.save<TransactionExchangeRateEntity>(
-        exchangeRate
-      );
-      // get TransactionEntity from dto
-      const transactionEntity = this.getTransactionEntityFromDto(dto);
-      /// assign to exhcangeRate to it
-      transactionEntity.exchangeRate = exchangeRate;
-      transactionEntity.type = type;
-      // save Transaction entity
-      await queryRunner.manager.save<TransactionEntity>(transactionEntity);
-      return [queryRunner, transactionEntity, dto];
-    } catch (e) {
-      await queryRunner.rollbackTransaction();
-      await queryRunner.release();
-      console.error(e);
-      throw Error('Unable to create customer');
-    }
-  }
+  getTransactionById = async (
+    params: any
+  ): Promise<TransactionEntity | null> => {
+    const id = params.id ?? 'N/A';
+    return this.dao.findSingleResource({ where: { id } });
+  };
 
-  getTransactionDto(
-    body: any,
-    customer: CustomerEntity,
-    fromAccount: AccountEntity,
-    toCurrency: CurrencyEntity
-  ): ICreateTransactionDto {
+  getAllTransactions = async (
+    queryParams: any
+  ): Promise<TransactionEntity[]> => {
+    const options = this.getTransactionQueryParams(queryParams);
+    return this.dao.getAllResources({ ...options, skip: 0, take: undefined });
+  };
+
+  getAllTransactionsAndCount = async (
+    query: any
+  ): Promise<[TransactionEntity[], number]> => {
+    const options = this.getTransactionQueryParams(query);
+    return this.dao.getAllResourcesAndCount(options);
+  };
+
+  deleteTransactionById = async (
+    transaction: TransactionEntity
+  ): Promise<TransactionEntity> => {
+    return this.dao.deleteResource(transaction);
+  };
+
+  private getTransactionQueryParams = (
+    queryParams: ITransactionQueryParams
+  ): FindManyOptions<TransactionEntity> => {
+    const { skip, take } = getPagination(queryParams);
+    const where: FindOptionsWhere<TransactionEntity>[] = [];
+
+    if (queryParams.customerId)
+      where.push({ customer: { id: queryParams.customerId } });
+
+    if (queryParams.accountId)
+      where.push({ fromAccount: { id: queryParams.accountId } });
+
+    if (queryParams.date) where.push({ date: Like(`%${queryParams.date}%`) });
+
+    const transactionType = this.getTransactionType(queryParams.type);
+    Logger.info({ transactionType });
+    if (transactionType) where.push({ type: transactionType });
+    const orderby = this.getOrderBy(queryParams.orderBy, queryParams.order);
+    Logger.warn({ orderby });
     return {
-      amount: Math.abs(body['amount']),
-      customer: customer,
-      fromAccount: fromAccount,
-      balanceSnapshot: fromAccount.balance,
-
-      exchangeRate: {
-        fromCurrency: fromAccount.currency,
-        toCurrency: toCurrency,
-        rate:
-          toCurrency.id == fromAccount.currency.id
-            ? 1
-            : Number.parseFloat(body['exchangeRate']['rate']),
-      },
-      comment: body['comment'],
+      where: where.length >= 1 ? where : undefined,
+      skip: skip,
+      take: take,
+      order: orderby,
     };
-  }
-  getExchangeRateEntityFromDto(
-    dto: ICreateExchangeRate,
-    amount: number
-  ): TransactionExchangeRateEntity {
-    const entity = new TransactionExchangeRateEntity();
-    entity.fromCurrency = dto.fromCurrency;
-    entity.toCurrency = dto.toCurrency;
-    entity.rate = dto.rate;
-    entity.exchangedAmount = amount * dto.rate;
-    return entity;
-  }
+  };
 
-  getTransactionEntityFromDto(dto: ICreateTransactionDto): TransactionEntity {
-    const transactionEntity = new TransactionEntity();
-    transactionEntity.amount = dto.amount;
-    transactionEntity.balanceSnapShot = dto.fromAccount.balance;
-    transactionEntity.customer = dto.customer;
-    transactionEntity.fromAccount = dto.fromAccount;
-    transactionEntity.fromAccount.customerId = dto.customer.id;
+  private getTransactionType = (type?: string): TransactionType | null => {
+    if (type === 'deposite') return 'deposite';
+    if (type === 'localTransfer') return 'localeTransfer';
+    if (type === 'globalTransfer') return 'globalTransfer';
+    if (type === 'withdraw') return 'withdraw';
+    return null;
+  };
 
-    transactionEntity.comment = dto.comment ?? 'N/A';
-    return transactionEntity;
-  }
-
-  getAccountEntityFromDto(
-    customer: CustomerEntity,
-    fromAccount: AccountEntity
-  ): AccountEntity {
-    const updatedFromAccount = new AccountEntity();
-    updatedFromAccount.id = fromAccount.id;
-    updatedFromAccount.customerId = customer.id;
-    // updatedFromAccount.currencyId = fromAccount.currency.id;
-    updatedFromAccount.currency = fromAccount.currency;
-    updatedFromAccount.balance = fromAccount.balance;
-    return updatedFromAccount;
-  }
+  private getOrderBy = (
+    orderBy?: string,
+    order: OrderType = 'desc'
+  ): FindOptionsOrder<TransactionEntity> | undefined => {
+    if (orderBy === 'amount') return { amount: order };
+    return { date: order };
+  };
 }

@@ -2,7 +2,6 @@ import express from 'express';
 import Joi from 'joi';
 import networkHandler from '../utils/network.handler';
 export abstract class ICommonController {
-  constructor() {}
   abstract get creationSchema(): Joi.ObjectSchema;
   validateCreationSchema = (
     req: express.Request,
