@@ -11,6 +11,7 @@ import networkHandler from '../../../utils/network.handler';
 import { UserEntity } from '../entity/user.entity';
 import express from 'express';
 import { setTotalPagesHeader } from '../../../utils/utils';
+import { Logger } from '../../../utils/logger';
 
 export class UserController extends ICommonController {
   constructor(private service: UserService = new UserService()) {
@@ -37,7 +38,7 @@ export class UserController extends ICommonController {
       const entity = await this.service.findSingleResource({ id: resource.id });
       return res.json(entity);
     } catch (e) {
-      console.error(e);
+      Logger.error(e);
       return networkHandler.badRequest(res, 'User Already exists');
     }
   };
@@ -47,7 +48,7 @@ export class UserController extends ICommonController {
     res: Response<any, Record<string, any>>
   ): Promise<void | Response<any, Record<string, any>>> => {
     try {
-      console.log('here');
+      Logger.info('here');
       const entity: UserEntity | null = await this.service.findSingleResource(
         req.params
       );
@@ -55,7 +56,7 @@ export class UserController extends ICommonController {
         return networkHandler.entityNotFound(res, 'User', req.params.id);
       return res.json(entity);
     } catch (e) {
-      console.error(e);
+      Logger.error(e);
       return;
     }
   };
@@ -65,7 +66,7 @@ export class UserController extends ICommonController {
       setTotalPagesHeader(res, req.query, count);
       return res.json(users);
     } catch (e) {
-      console.error(e);
+      Logger.error(e);
       networkHandler.serverError(res, 'Error Occured');
     }
   };
@@ -73,8 +74,9 @@ export class UserController extends ICommonController {
     req: Request<ParamsDictionary, any, any, ParsedQs, Record<string, any>>,
     res: Response<any, Record<string, any>>
   ): Promise<void | Response<any, Record<string, any>>> => {
-    const user = await this.service.deleteResource(req.params);
+    const user = await this.service.findSingleResource(req.params);
     if (!user) return networkHandler.entityNotFound(res, 'User', req.params.id);
-    return res.json(user);
+    const removedUser = await this.service.deleteResource(user);
+    return res.json(removedUser);
   };
 }

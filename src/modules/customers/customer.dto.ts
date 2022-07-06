@@ -1,7 +1,7 @@
 import { CurrencyEntity } from '../currency/currency.entity';
 import { ICommonQueryParams } from '../../common/common.queryparams';
 import { getPagination } from '../../utils/utils';
-import { FindOptionsWhere, FindManyOptions, Like } from 'typeorm';
+import { FindOptionsWhere, FindManyOptions, Like, Not } from 'typeorm';
 import { CustomerDao } from './customer.dao';
 import { CustomerEntity } from './customer.entity';
 import { AccountEntity } from './accounts/customer.account.entity';
@@ -9,6 +9,10 @@ export interface ICreateCustomerDto {
   fullName: string;
   phone: string;
   accounts?: ICreateCustomerAccountDto[];
+}
+export interface IUpdateCustomerDto {
+  fullName?: string;
+  phone?: string;
 }
 export interface ICreateCustomerAccountDto {
   balance?: number;
@@ -24,6 +28,7 @@ export interface IGetCustomerDto {
   fullName: string;
   phone: string;
   accounts: IGetAccountDto[];
+  isRemoved: boolean;
   updateDate: string;
 }
 export interface IGetAccountDto {
@@ -53,11 +58,14 @@ export function getCustomerQueryParams(
   params: ICustomerQueryParams
 ): FindManyOptions<CustomerEntity> {
   const { take, skip } = getPagination(params);
-  const where: FindOptionsWhere<CustomerEntity>[] = [];
-  if (params.fullname) where.push({ fullName: Like(`%${params.fullname}%`) });
-  if (params.phone) where.push({ phone: Like(`%${params.phone}%`) });
+  const where: FindOptionsWhere<CustomerEntity> = {
+    fullName: params.fullname ? Like(`%${params.fullname}%`) : Not(''),
+    phone: params.phone ? Like(`%${params.phone}%`) : Not(''),
+    isRemoved: false,
+  };
+
   return {
-    where: where.length > 0 ? where : undefined,
+    where: where,
     skip: skip,
     take: take,
     order: { createDate: 'asc' },

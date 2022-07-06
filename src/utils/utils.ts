@@ -40,12 +40,18 @@ export function getJwtToken(
 
 export const setTotalPagesHeader = (
   res: express.Response,
-  query: any,
+  query: ICommonQueryParams,
   count: number
 ): void => {
   const limit = parseInt(query.limit || '10');
-  res.setHeader('total-pages', Math.ceil(count / limit));
+  const currentPage = parseInt(query.page ?? '1');
+  const totalPages = Math.ceil(count / limit);
+  const nextPage = currentPage + 1 >= totalPages ? totalPages : currentPage + 1;
+  res.setHeader('total-pages', totalPages);
   res.setHeader('count', count);
+  res.setHeader('current-page', currentPage);
+  res.setHeader('next-page', nextPage);
+  res.setHeader('query', JSON.stringify(query));
 };
 
 export function getPagination(params: ICommonQueryParams) {

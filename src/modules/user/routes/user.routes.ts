@@ -4,6 +4,7 @@ import express from 'express';
 import { UserController } from '../controller/user.controller';
 import { AuthorizationMiddleware } from '../../../middlewares/authorization.middleware';
 import { RoleEntity } from '../../role/role.entity';
+import { Logger } from '../../../utils/logger';
 
 export class UserRoute extends CommonRoutesConfig<UserController> {
   constructor(
@@ -19,23 +20,22 @@ export class UserRoute extends CommonRoutesConfig<UserController> {
   }
   configureRoutes(): Application {
     const authMid = new AuthorizationMiddleware();
-    console.log('user', this.adminRole);
+    Logger.info('user', this.adminRole);
 
     this.app.route(this.route).get(this.controller.findAllResources);
 
-    this.app
-      .route(`${this.route}/:id`)
-      .get(
-        authMid.isAuthorizedUser,
-        authMid.isAuthByRole(['admin']),
-        this.controller.findSingleResource
-      ),
+    this.app.route(`${this.route}/:id`).get(
+      // authMid.isAuthorizedUser,
+      // authMid.isAuthByRole(['admin']),
+      this.controller.findSingleResource
+    ),
       this.app
         .route(this.route)
         .post(
           this.controller.validateCreationSchema,
           this.controller.addResource
         );
+    this.app.route(this.route + '/:id').delete(this.controller.deleteResource);
     return this.app;
   }
 }

@@ -38,7 +38,7 @@ export class UserEntity {
   password!: string;
 
   @ManyToOne(() => RoleEntity, {
-    nullable: false,
+    nullable: true,
     eager: true,
     lazy: false,
   })

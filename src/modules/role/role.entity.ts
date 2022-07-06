@@ -12,7 +12,7 @@ import {
 export class RoleEntity {
   @PrimaryGeneratedColumn('increment')
   id!: number;
-  @Column({ name: 'role', type: 'varchar', nullable: false })
+  @Column({ name: 'role', type: 'varchar', nullable: false, unique: true })
   role!: string;
 
   @CreateDateColumn({ name: 'create_date' })

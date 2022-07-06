@@ -7,6 +7,7 @@ import { CurrencyService } from './currency.service';
 import Joi from 'joi';
 import networkHandler from '../../utils/network.handler';
 import { setTotalPagesHeader } from '../../utils/utils';
+import { Logger } from '../../utils/logger';
 export class CurrencyController extends ICommonController {
   constructor(private service: CurrencyService = new CurrencyService()) {
     super();
@@ -25,7 +26,7 @@ export class CurrencyController extends ICommonController {
       const currency = await this.service.addNewCurrency(req.body);
       return res.json(currency);
     } catch (e) {
-      console.error(e);
+      Logger.error(e);
       return networkHandler.badRequest(res, 'Currency Already Exists');
     }
   };
@@ -39,7 +40,8 @@ export class CurrencyController extends ICommonController {
         return networkHandler.entityNotFound(res, 'Currency', req.params.id);
       return res.json(currency);
     } catch (e) {
-      console.error(e);
+      Logger.error(e);
+
       return networkHandler.serverError(res, 'An Error Occured');
     }
   };

@@ -46,10 +46,17 @@ export class CustomerDao extends ICommonDao<CustomerEntity> {
   }
 
   deleteResource(resource: CustomerEntity): Promise<CustomerEntity> {
-    throw new Error('Method not implemented.');
+    return this.repo.softRemove(resource);
   }
 
-  updateResource(resource: CustomerEntity): Promise<CustomerEntity> {
-    throw new Error('Method not implemented.');
+  async updateResource(resource: CustomerEntity): Promise<CustomerEntity> {
+    const result = await this.repo.update(resource.id, {
+      fullName: resource.fullName,
+      phone: resource.phone,
+    });
+    const customer = await this.findSingleResource({
+      where: { id: resource.id },
+    });
+    return customer!;
   }
 }

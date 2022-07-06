@@ -56,27 +56,44 @@ export class TransactionService {
     if (queryParams.accountId)
       where.push({ fromAccount: { id: queryParams.accountId } });
 
-    if (queryParams.date) where.push({ date: Like(`%${queryParams.date}%`) });
-
+    const date = queryParams.date;
     const transactionType = this.getTransactionType(queryParams.type);
-    Logger.info({ transactionType });
-    if (transactionType) where.push({ type: transactionType });
+    if (transactionType !== undefined && date !== undefined) {
+      where.push({
+        type: transactionType,
+        date: Like(`%${queryParams.date}%`),
+      });
+    } else if (queryParams.date) {
+      where.push({ date: Like(`%${queryParams.date}%`) });
+    } else if (transactionType !== undefined) {
+      where.push({
+        type: transactionType,
+      });
+    }
+
     const orderby = this.getOrderBy(queryParams.orderBy, queryParams.order);
     Logger.warn({ orderby });
+    // const data = !(
+    //   transactionType === undefined || queryParams.date === undefined
+    // )
+
+    //   : [{ date: Like(`%${queryParams.date}%`), type: transactionType }];
+
     return {
       where: where.length >= 1 ? where : undefined,
+
       skip: skip,
       take: take,
       order: orderby,
     };
   };
 
-  private getTransactionType = (type?: string): TransactionType | null => {
+  private getTransactionType = (type?: string): TransactionType | undefined => {
     if (type === 'deposite') return 'deposite';
     if (type === 'localTransfer') return 'localeTransfer';
     if (type === 'globalTransfer') return 'globalTransfer';
     if (type === 'withdraw') return 'withdraw';
-    return null;
+    return;
   };
 
   private getOrderBy = (

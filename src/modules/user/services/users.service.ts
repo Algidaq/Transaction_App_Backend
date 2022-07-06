@@ -5,6 +5,7 @@ import bcrypt from 'bcrypt';
 import { encryptePassowrd, kSaltRounds } from '../../../utils/utils';
 import { UserDao } from '../models/user.dao';
 import networkHandler from '../../../utils/network.handler';
+import { Logger } from '../../../utils/logger';
 export class UserService {
   constructor(private dao: ICommonDao<UserEntity> = new UserDao()) {}
 
@@ -16,7 +17,6 @@ export class UserService {
   }
 
   async findSingleResource(params: any): Promise<UserEntity | null> {
-    console.log(params);
     const id: string = params?.id ?? '';
     if (id === '') return null;
     const entity = await this.dao.findSingleResource({
@@ -28,9 +28,7 @@ export class UserService {
     const findOptions = getUserFindMany(queryParams);
     return this.dao.getAllResourcesAndCount(findOptions);
   }
-  async deleteResource(params: any): Promise<UserEntity | null> {
-    const user = await this.findSingleResource(params);
-    if (!user) return null;
-    return user;
+  deleteResource(user: UserEntity): Promise<UserEntity> {
+    return this.dao.deleteResource(user);
   }
 }

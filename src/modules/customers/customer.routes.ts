@@ -48,6 +48,14 @@ export class CustomerRoutes extends CommonRoutesConfig<CustomerController> {
         this.controller.validateCreationSchema,
         this.controller.addResource
       );
+    this.app.route(this.route + '/:id').delete(this.controller.deleteResource);
+    this.app
+      .route(this.route + '/:id')
+      .put(
+        entityExitsMiddleware<CustomerDao>(customerDao),
+        this.controller.validateUpdateSchema,
+        this.controller.updateResources
+      );
 
     return this.app;
   }

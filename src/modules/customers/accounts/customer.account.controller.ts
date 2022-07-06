@@ -10,6 +10,7 @@ import { CustomerAccountService } from './customer.account.service';
 import networkHandler from '../../../utils/network.handler';
 import { IGetAccountDto } from '../customer.dto';
 import { CustomerEntity } from '../customer.entity';
+import { Logger } from '../../../utils/logger';
 export class CustomerAccountController extends ICommonController {
   constructor(
     private accountService: CustomerAccountService = new CustomerAccountService()
@@ -37,7 +38,7 @@ export class CustomerAccountController extends ICommonController {
     try {
       const customer: CustomerEntity = (req as any).entity;
       const _entity = await this.accountService.addResource(req.body, customer);
-      console.log(_entity);
+      Logger.info(_entity);
       const element = await this.accountService.getAccountById(
         _entity.generatedMaps[0].id
       );
@@ -50,7 +51,7 @@ export class CustomerAccountController extends ICommonController {
         updateDate: element?.updateDate,
       });
     } catch (e: any) {
-      console.log(e);
+      Logger.error(e);
       return networkHandler.badRequest(res, 'Account Already extis');
     }
   };
@@ -86,7 +87,7 @@ export class CustomerAccountController extends ICommonController {
       });
       return res.json(formattedAccounts);
     } catch (e) {
-      console.log(e);
+      Logger.error(e);
       return networkHandler.serverError(res, 'Error Occured');
     }
   };

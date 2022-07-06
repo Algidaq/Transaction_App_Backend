@@ -18,6 +18,7 @@ const ApplicationDataSource = new DataSource({
   password: process.env.DB_PASS ?? 'password',
   dateStrings: true,
   synchronize: true,
+  cache: false,
   driver: mysql2,
   entities: [
     UserEntity,

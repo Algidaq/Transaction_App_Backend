@@ -10,7 +10,7 @@ export interface IUpdateCurrencyDto {
 }
 export function getCurrencyFromBody(body: any): ICreateCurrencyDto {
   const json = { ...body };
-  return { name: json['name'] ?? 'N/A', symbol: json['symbol'] ?? 'N/A' };
+  return { name: json.name ?? 'N/A', symbol: json.symbol ?? 'N/A' };
 }
 
 export interface ICurrencyQueryParams extends ICommonQueryParams {

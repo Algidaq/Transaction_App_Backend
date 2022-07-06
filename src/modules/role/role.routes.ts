@@ -3,6 +3,8 @@ import { CommonRoutesConfig } from '../../common/common.route.config';
 import { RoleController } from './role.controller';
 import express from 'express';
 import { RoleEntity } from './role.entity';
+import { entityExitsMiddleware } from '../../middlewares/entity.exits.middleware';
+import { RoleDao } from './role.dao';
 export class RoleRoutes extends CommonRoutesConfig<RoleController> {
   constructor(app: express.Application, roles: RoleEntity[] = []) {
     super(app, 'RoleRoute', new RoleController());
@@ -15,6 +17,7 @@ export class RoleRoutes extends CommonRoutesConfig<RoleController> {
       .route(this.route)
       .post(
         this.controller.validateCreationSchema,
+        this.controller.validateIfRoleExists,
         this.controller.addResource
       );
     return this.app;

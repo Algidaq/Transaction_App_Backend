@@ -24,11 +24,20 @@ export class CustomerEntity {
 
   @OneToMany(() => AccountEntity, (account) => account.customer, {
     eager: true,
-    cascade: ['insert', 'update', 'remove'],
+    nullable: false,
+    cascade: false,
+    onUpdate: 'NO ACTION',
   })
   @JoinColumn()
   accounts!: AccountEntity[];
 
+  @Column({
+    name: 'is_removed',
+    type: 'boolean',
+    default: false,
+    nullable: false,
+  })
+  isRemoved!: boolean;
   @CreateDateColumn({ name: 'create_date' })
   createDate!: string;
   @UpdateDateColumn({ name: 'update_date' })
