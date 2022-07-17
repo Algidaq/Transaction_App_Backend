@@ -80,23 +80,27 @@ app.get('/', (req: express.Request, res: express.Response) => {
 });
 
 async function setup() {
-  await ApplicationDataSource.initialize();
-  const roles = await new RoleDao().getAllResources();
-  const routes: CommonRoutesConfig<any>[] = [];
-  routes.push(new UserRoute(app, roles));
-  routes.push(new AuthRoutes(app));
-  routes.push(new RoleRoutes(app, roles));
-  routes.push(new CurrencyRoutes(app, roles));
-  routes.push(new CustomerRoutes(app, roles));
-  routes.push(new TransactionRoutes(app, roles));
-  server.listen(port, async () => {
-    routes.forEach((route: CommonRoutesConfig<any>) => {
-      Logger.info(`Routes configured for ${route.name} ${route.route}`);
+  try {
+    await ApplicationDataSource.initialize();
+    const roles = await new RoleDao().getAllResources();
+    const routes: CommonRoutesConfig<any>[] = [];
+    routes.push(new UserRoute(app, roles));
+    routes.push(new AuthRoutes(app));
+    routes.push(new RoleRoutes(app, roles));
+    routes.push(new CurrencyRoutes(app, roles));
+    routes.push(new CustomerRoutes(app, roles));
+    routes.push(new TransactionRoutes(app, roles));
+    server.listen(port, async () => {
+      routes.forEach((route: CommonRoutesConfig<any>) => {
+        Logger.info(`Routes configured for ${route.name} ${route.route}`);
+      });
+      // our only exception to avoiding console.log(), because we
+      // always want to know when the server is done starting up
+      Logger.info(runningMessage);
     });
-    // our only exception to avoiding console.log(), because we
-    // always want to know when the server is done starting up
-    Logger.info(runningMessage);
-  });
+  } catch (e) {
+    Logger.error('erorr', [e]);
+  }
 }
 
 setup();

@@ -1,6 +1,6 @@
 import { TransactionDao } from './transaction.dao';
 import { TransactionEntity } from './entity/transaction.entity';
-import { ITransactionQueryParams } from './transactions.dto';
+import { ITransactionQueryParams, IGetStatementDto } from './transactions.dto';
 import { getPagination } from '../../utils/utils';
 import {
   FindManyOptions,
@@ -9,6 +9,7 @@ import {
   FindOneOptions,
   FindOptionsOrder,
   FindOptionsOrderValue,
+  Between,
 } from 'typeorm';
 import moment from 'moment';
 import { TransactionType } from './types/transactions.types';
@@ -29,6 +30,27 @@ export class TransactionService {
   ): Promise<TransactionEntity[]> => {
     const options = this.getTransactionQueryParams(queryParams);
     return this.dao.getAllResources({ ...options, skip: 0, take: undefined });
+  };
+
+  getCustomerStatement = async (
+    data: IGetStatementDto
+  ): Promise<TransactionEntity[]> => {
+    const fromDate = new Date(data.fromDate);
+    // fromDate.setDate(fromDate.getDate()  1);
+    const toDate = new Date(data.toDate);
+    toDate.setDate(toDate.getDate() + 1);
+
+    Logger.warn('warn', { fromDate, toDate });
+    return this.dao.getAllResources({
+      where: {
+        customer: { id: data.customerId },
+        date: Between(
+          fromDate.toISOString().slice(0, 10),
+          toDate.toISOString().slice(0, 10)
+        ),
+      },
+      order: { date: 'desc' },
+    });
   };
 
   getAllTransactionsAndCount = async (
@@ -58,6 +80,16 @@ export class TransactionService {
 
     const date = queryParams.date;
     const transactionType = this.getTransactionType(queryParams.type);
+    const customer = {
+      fullName:
+        queryParams.fullName !== undefined
+          ? Like(`%${queryParams.fullName}%`)
+          : undefined,
+      phone:
+        queryParams.phone !== undefined
+          ? Like(`%${queryParams.phone}%`)
+          : undefined,
+    };
     if (transactionType !== undefined && date !== undefined) {
       where.push({
         type: transactionType,
@@ -70,7 +102,13 @@ export class TransactionService {
         type: transactionType,
       });
     }
-
+    if (queryParams.fullName !== undefined || queryParams.phone !== undefined) {
+      if (where.length >= 1) {
+        where[0].customer = customer;
+      } else {
+        where.push({ customer: customer });
+      }
+    }
     const orderby = this.getOrderBy(queryParams.orderBy, queryParams.order);
     Logger.warn({ orderby });
     // const data = !(

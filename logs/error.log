@@ -2353,3 +2353,120 @@
 [31m  sql: "UPDATE `customers` SET `full_name` = 'احمد مجمد', `phone` = '0902296931', `update_date` = CURRENT_TIMESTAMP WHERE `id` IN ('fcb6bef7-2dee-4389-afb4-a9ae17687a5f')",[39m
 [31m  level: '\x1B[31merror\x1B[39m'[39m
 [31m}[39m
+[31m{ level: '\x1B[31merror\x1B[39m' }[39m
+[31m{[39m
+[31m  '0': CircularRelationsError: Circular relations detected: TypeORMu -> u. To resolve this issue you need to set nullable: true somewhere in this dependency structure.[39m
+[31m      at EntityMetadataValidator.validateDependencies (/Users/mac/Desktop/node/transaction-app/node_modules/typeorm/metadata-builder/EntityMetadataValidator.js:204:19)[39m
+[31m      at EntityMetadataValidator.validateMany (/Users/mac/Desktop/node/transaction-app/node_modules/typeorm/metadata-builder/EntityMetadataValidator.js:39:14)[39m
+[31m      at DataSource.buildMetadatas (/Users/mac/Desktop/node/transaction-app/node_modules/typeorm/data-source/DataSource.js:444:33)[39m
+[31m      at processTicksAndRejections (internal/process/task_queues.js:93:5)[39m
+[31m      at async DataSource.initialize (/Users/mac/Desktop/node/transaction-app/node_modules/typeorm/data-source/DataSource.js:130:13),[39m
+[31m  level: '\x1B[31merror\x1B[39m',[39m
+[31m  message: '\x1B[31merorr\x1B[39m'[39m
+[31m}[39m
+[31m{[39m
+[31m  '0': Error: connect ECONNREFUSED 127.0.0.1:3306[39m
+[31m      at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1146:16) {[39m
+[31m    errno: -61,[39m
+[31m    code: 'ECONNREFUSED',[39m
+[31m    syscall: 'connect',[39m
+[31m    address: '127.0.0.1',[39m
+[31m    port: 3306,[39m
+[31m    fatal: true[39m
+[31m  },[39m
+[31m  level: '\x1B[31merror\x1B[39m',[39m
+[31m  message: '\x1B[31merorr\x1B[39m'[39m
+[31m}[39m
+[31m{ code: 'ERR_INVALID_CHAR', level: '\x1B[31merror\x1B[39m' }[39m
+[31m{ code: 'ERR_INVALID_CHAR', level: '\x1B[31merror\x1B[39m' }[39m
+[31m{ code: 'ERR_INVALID_CHAR', level: '\x1B[31merror\x1B[39m' }[39m
+[31m{[39m
+[31m  '0': TypeORMError: Entity metadata for TransactionEntity#depoisteInfo was not found. Check if you specified a correct entity object and if it's connected in the connection options.[39m
+[31m      at /Users/mac/Desktop/node/transaction-app/node_modules/src/metadata-builder/EntityMetadataBuilder.ts:1089:23[39m
+[31m      at Array.forEach (<anonymous>)[39m
+[31m      at EntityMetadataBuilder.computeInverseProperties (/Users/mac/Desktop/node/transaction-app/node_modules/src/metadata-builder/EntityMetadataBuilder.ts:1079:34)[39m
+[31m      at /Users/mac/Desktop/node/transaction-app/node_modules/src/metadata-builder/EntityMetadataBuilder.ts:158:18[39m
+[31m      at Array.forEach (<anonymous>)[39m
+[31m      at EntityMetadataBuilder.build (/Users/mac/Desktop/node/transaction-app/node_modules/src/metadata-builder/EntityMetadataBuilder.ts:157:25)[39m
+[31m      at ConnectionMetadataBuilder.buildEntityMetadatas (/Users/mac/Desktop/node/transaction-app/node_modules/src/connection/ConnectionMetadataBuilder.ts:106:11)[39m
+[31m      at processTicksAndRejections (internal/process/task_queues.js:93:5)[39m
+[31m      at async DataSource.buildMetadatas (/Users/mac/Desktop/node/transaction-app/node_modules/src/data-source/DataSource.ts:667:13)[39m
+[31m      at async DataSource.initialize (/Users/mac/Desktop/node/transaction-app/node_modules/src/data-source/DataSource.ts:241:13),[39m
+[31m  level: '\x1B[31merror\x1B[39m',[39m
+[31m  message: '\x1B[31merorr\x1B[39m'[39m
+[31m}[39m
+[31m{[39m
+[31m  '0': TypeError: Cannot convert a Symbol value to a string[39m
+[31m      at RegExp.exec (<anonymous>)[39m
+[31m      at escapeString (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/node_modules/sqlstring/lib/SqlString.js:201:39)[39m
+[31m      at Object.escape (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/node_modules/sqlstring/lib/SqlString.js:56:21)[39m
+[31m      at Object.objectToValues (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/node_modules/sqlstring/lib/SqlString.js:180:89)[39m
+[31m      at Object.escape (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/node_modules/sqlstring/lib/SqlString.js:54:26)[39m
+[31m      at Object.format (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/node_modules/sqlstring/lib/SqlString.js:100:19)[39m
+[31m      at PoolConnection.format (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/connection.js:499:22)[39m
+[31m      at PoolConnection.query (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/connection.js:544:25)[39m
+[31m      at /Users/mac/Desktop/node/transaction-app/node_modules/typeorm/src/driver/mysql/MysqlQueryRunner.ts:194:36[39m
+[31m      at processTicksAndRejections (internal/process/task_queues.js:93:5),[39m
+[31m  level: '\x1B[31merror\x1B[39m',[39m
+[31m  message: '\x1B[31mgetCustomerStatement\x1B[39m'[39m
+[31m}[39m
+[31m{[39m
+[31m  '0': TypeError: Cannot convert a Symbol value to a string[39m
+[31m      at RegExp.exec (<anonymous>)[39m
+[31m      at escapeString (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/node_modules/sqlstring/lib/SqlString.js:201:39)[39m
+[31m      at Object.escape (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/node_modules/sqlstring/lib/SqlString.js:56:21)[39m
+[31m      at Object.objectToValues (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/node_modules/sqlstring/lib/SqlString.js:180:89)[39m
+[31m      at Object.escape (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/node_modules/sqlstring/lib/SqlString.js:54:26)[39m
+[31m      at Object.format (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/node_modules/sqlstring/lib/SqlString.js:100:19)[39m
+[31m      at PoolConnection.format (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/connection.js:499:22)[39m
+[31m      at PoolConnection.query (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/connection.js:544:25)[39m
+[31m      at /Users/mac/Desktop/node/transaction-app/node_modules/typeorm/src/driver/mysql/MysqlQueryRunner.ts:194:36[39m
+[31m      at processTicksAndRejections (internal/process/task_queues.js:93:5),[39m
+[31m  level: '\x1B[31merror\x1B[39m',[39m
+[31m  message: '\x1B[31mgetCustomerStatement\x1B[39m'[39m
+[31m}[39m
+[31m{[39m
+[31m  '0': TypeError: Cannot convert a Symbol value to a string[39m
+[31m      at RegExp.exec (<anonymous>)[39m
+[31m      at escapeString (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/node_modules/sqlstring/lib/SqlString.js:201:39)[39m
+[31m      at Object.escape (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/node_modules/sqlstring/lib/SqlString.js:56:21)[39m
+[31m      at Object.objectToValues (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/node_modules/sqlstring/lib/SqlString.js:180:89)[39m
+[31m      at Object.escape (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/node_modules/sqlstring/lib/SqlString.js:54:26)[39m
+[31m      at Object.format (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/node_modules/sqlstring/lib/SqlString.js:100:19)[39m
+[31m      at PoolConnection.format (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/connection.js:499:22)[39m
+[31m      at PoolConnection.query (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/connection.js:544:25)[39m
+[31m      at /Users/mac/Desktop/node/transaction-app/node_modules/typeorm/src/driver/mysql/MysqlQueryRunner.ts:194:36[39m
+[31m      at processTicksAndRejections (internal/process/task_queues.js:93:5),[39m
+[31m  level: '\x1B[31merror\x1B[39m',[39m
+[31m  message: '\x1B[31mgetCustomerStatement\x1B[39m'[39m
+[31m}[39m
+[31m{[39m
+[31m  '0': TypeError: Cannot convert a Symbol value to a string[39m
+[31m      at RegExp.exec (<anonymous>)[39m
+[31m      at escapeString (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/node_modules/sqlstring/lib/SqlString.js:201:39)[39m
+[31m      at Object.escape (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/node_modules/sqlstring/lib/SqlString.js:56:21)[39m
+[31m      at Object.objectToValues (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/node_modules/sqlstring/lib/SqlString.js:180:89)[39m
+[31m      at Object.escape (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/node_modules/sqlstring/lib/SqlString.js:54:26)[39m
+[31m      at Object.format (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/node_modules/sqlstring/lib/SqlString.js:100:19)[39m
+[31m      at PoolConnection.format (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/connection.js:499:22)[39m
+[31m      at PoolConnection.query (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/connection.js:544:25)[39m
+[31m      at /Users/mac/Desktop/node/transaction-app/node_modules/typeorm/src/driver/mysql/MysqlQueryRunner.ts:194:36[39m
+[31m      at processTicksAndRejections (internal/process/task_queues.js:93:5),[39m
+[31m  level: '\x1B[31merror\x1B[39m',[39m
+[31m  message: '\x1B[31mgetCustomerStatement\x1B[39m'[39m
+[31m}[39m
+[31m{[39m
+[31m  '0': TypeError: Cannot convert a Symbol value to a string[39m
+[31m      at RegExp.exec (<anonymous>)[39m
+[31m      at escapeString (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/node_modules/sqlstring/lib/SqlString.js:201:39)[39m
+[31m      at Object.escape (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/node_modules/sqlstring/lib/SqlString.js:56:21)[39m
+[31m      at Object.objectToValues (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/node_modules/sqlstring/lib/SqlString.js:180:89)[39m
+[31m      at Object.escape (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/node_modules/sqlstring/lib/SqlString.js:54:26)[39m
+[31m      at Object.format (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/node_modules/sqlstring/lib/SqlString.js:100:19)[39m
+[31m      at PoolConnection.format (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/connection.js:499:22)[39m
+[31m      at PoolConnection.query (/Users/mac/Desktop/node/transaction-app/node_modules/mysql2/lib/connection.js:544:25)[39m
+[31m      at /Users/mac/Desktop/node/transaction-app/node_modules/typeorm/src/driver/mysql/MysqlQueryRunner.ts:194:36[39m
+[31m      at processTicksAndRejections (internal/process/task_queues.js:93:5),[39m
+[31m  level: '\x1B[31merror\x1B[39m',[39m
+[31m  message: '\x1B[31mgetCustomerStatement\x1B[39m'[39m
+[31m}[39m

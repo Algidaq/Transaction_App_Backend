@@ -35,6 +35,14 @@ export interface ITransactionQueryParams extends ICommonQueryParams {
    */
   accountId?: string;
   /**
+   * filter by customer name
+   */
+  fullName?: string;
+  /**
+   * filter by phone number
+   */
+  phone?: string;
+  /**
    * filter transaction by specific date
    */
   date?: string;
@@ -69,4 +77,10 @@ export function getTransactionEntityFromDto(
 
   transactionEntity.comment = dto.comment ?? 'N/A';
   return transactionEntity;
+}
+
+export interface IGetStatementDto {
+  customerId: string;
+  fromDate: string;
+  toDate: string;
 }

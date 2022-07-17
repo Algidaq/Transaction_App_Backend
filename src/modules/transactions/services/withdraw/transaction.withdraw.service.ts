@@ -17,7 +17,7 @@ export class TransactionWithdrawService extends ITransactionService {
     toCurrency: CurrencyEntity
   ): Promise<TransactionEntity> => {
     const _runner = ApplicationDataSource.createQueryRunner();
-    const [queryRunner, transaction, dto] = await super.makeTransaction(
+    const [queryRunner, transaction, dto] = await this.makeTransaction(
       _runner,
       body,
       customer,

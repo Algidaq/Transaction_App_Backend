@@ -11,7 +11,7 @@ export class TransactionGlobalTransferService extends ITransactionService {
     data: IGlobalTransfer
   ): Promise<TransactionEntity> => {
     const _runner = ApplicationDataSource.createQueryRunner();
-    const [queryRunner, transaction, dto] = await super.makeTransaction(
+    const [queryRunner, transaction, dto] = await this.makeTransaction(
       _runner,
       data.body,
       data.customer,
@@ -34,7 +34,7 @@ export class TransactionGlobalTransferService extends ITransactionService {
       return transaction;
     } catch (e: any) {
       Logger.error(e);
-      throw Error('An Error occured', { cause: e });
+      throw Error('An Error occured');
     }
   };
 

@@ -14,7 +14,7 @@ export class TransactionLocalTransferService extends ITransactionService {
     data: ILocaleTransfer
   ): Promise<TransactionEntity> => {
     const _runner = ApplicationDataSource.createQueryRunner();
-    const [queryRunner, transaction, dto] = await super.makeTransaction(
+    const [queryRunner, transaction, dto] = await this.makeTransaction(
       _runner,
       data.body,
       data.customer,

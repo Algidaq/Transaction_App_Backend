@@ -8,6 +8,9 @@ import { TransactionService } from './transaction.service';
 import { setTotalPagesHeader } from '../../utils/utils';
 import express from 'express';
 import { Logger } from '../../utils/logger';
+import Joi from 'joi';
+import { CustomerService } from '../customers/customers.service';
+import { IGetStatementDto } from './transactions.dto';
 export class TransactionController extends ICommonController {
   constructor(private service: TransactionService = new TransactionService()) {
     super();
@@ -15,6 +18,14 @@ export class TransactionController extends ICommonController {
 
   get creationSchema(): ObjectSchema<any> {
     throw new Error('Method not implemented.');
+  }
+
+  get customerStatementSchema(): ObjectSchema<any> {
+    return Joi.object({
+      customerId: Joi.string().required(),
+      fromDate: Joi.date().required(),
+      toDate: Joi.date().required(),
+    });
   }
 
   findSingleResource = async (
@@ -44,6 +55,28 @@ export class TransactionController extends ICommonController {
     setTotalPagesHeader(res, req.query, count);
     res.json(transactions);
     return;
+  };
+
+  getCustomerStatement = async (
+    req: express.Request,
+    res: express.Response
+  ) => {
+    const data: IGetStatementDto = req.body;
+    const { error } = this.customerStatementSchema.validate(data);
+    if (error) return networkHandler.badRequest(res, error.message);
+    try {
+      const customer = await new CustomerService().getCustomer({
+        id: data.customerId,
+      });
+      if (!customer) {
+        return networkHandler.entityNotFound(res, 'Customer', data.customerId);
+      }
+      const transactions = await this.service.getCustomerStatement(data);
+      return res.json({ customer, transactions });
+    } catch (e) {
+      Logger.error('getCustomerStatement', [e]);
+      return networkHandler.serverError(res, 'Error Occured');
+    }
   };
 
   deleteResource = async (

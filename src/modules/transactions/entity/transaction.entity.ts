@@ -14,6 +14,7 @@ import { TransactionExchangeRateEntity } from './exchange_rate/exchange.rate.ent
 import { TransactionInfoEntity } from '../entity/transaction_info/transaction.info.entity';
 import { LocalTransactionInfoEntity } from '../entity/local_transaction_info/local.transaction.info.entity';
 import { AccountEntity } from '../../customers/accounts/customer.account.entity';
+import { DepositeInfo } from './deposite_info/deposite.info.entity';
 
 @Entity({ name: 'transactions' })
 export class TransactionEntity {
@@ -54,7 +55,9 @@ export class TransactionEntity {
   @OneToOne(() => LocalTransactionInfoEntity, { nullable: true, eager: true })
   @JoinColumn()
   localTransactionInfo!: LocalTransactionInfoEntity | null;
-
+  @OneToOne(() => DepositeInfo, { nullable: true, eager: true })
+  @JoinColumn()
+  depositeInfo!: DepositeInfo | null;
   @Column({ name: 'comment', nullable: false, type: 'varchar', default: 'N/A' })
   comment!: string;
 }

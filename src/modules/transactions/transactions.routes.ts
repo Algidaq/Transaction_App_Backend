@@ -62,6 +62,9 @@ export class TransactionRoutes extends CommonRoutesConfig<TransactionController>
         globalTransferController.validateIsCustomerAndFromAccountExists,
         globalTransferController.handleGlobalTransfer
       );
+    this.app
+      .route(this.route + '/print')
+      .post(this.controller.getCustomerStatement);
     /**
      * Get transaction by id
      */

@@ -9,6 +9,7 @@ import { LocalTransactionInfoEntity } from '../modules/transactions/entity/local
 import { TransactionInfoEntity } from '../modules/transactions/entity/transaction_info/transaction.info.entity';
 import { CustomerEntity } from '../modules/customers/customer.entity';
 import { AccountEntity } from '../modules/customers/accounts/customer.account.entity';
+import { DepositeInfo } from '../modules/transactions/entity/deposite_info/deposite.info.entity';
 const ApplicationDataSource = new DataSource({
   type: 'mysql',
   database: process.env.DB,
@@ -20,6 +21,7 @@ const ApplicationDataSource = new DataSource({
   synchronize: true,
   cache: false,
   driver: mysql2,
+  charset: 'utf8mb4_unicode_ci',
   entities: [
     UserEntity,
     RoleEntity,
@@ -30,6 +32,7 @@ const ApplicationDataSource = new DataSource({
     TransactionExchangeRateEntity,
     TransactionInfoEntity,
     LocalTransactionInfoEntity,
+    DepositeInfo,
   ],
 });
 

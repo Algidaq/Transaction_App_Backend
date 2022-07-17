@@ -51,7 +51,7 @@ export const setTotalPagesHeader = (
   res.setHeader('count', count);
   res.setHeader('current-page', currentPage);
   res.setHeader('next-page', nextPage);
-  res.setHeader('query', JSON.stringify(query));
+  // res.setHeader('query', JSON.stringify(query));
 };
 
 export function getPagination(params: ICommonQueryParams) {
